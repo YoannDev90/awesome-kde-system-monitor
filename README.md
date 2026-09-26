@@ -16,6 +16,18 @@ Custom pages for KDE Plasma System Monitor. Includes pre-generated `.page` files
 
 ## Installation
 
+### Option 1: Install the CLI tool (recommended)
+
+Requires [uv](https://docs.astral.sh/uv/):
+
+```bash
+uv tool install "awesome-kde-system-monitor @ git+https://github.com/YoannDev90/awesome-kde-system-monitor"
+```
+
+This installs the `generate-pages` command globally. If PyGObject is missing, you'll get a clear error with install instructions for your distro.
+
+### Option 2: Copy pre-generated pages
+
 Copy the `.page` files into the Plasma System Monitor config directory:
 
 ```bash
@@ -24,6 +36,24 @@ cp *.page ~/.local/share/plasma-systemmonitor/
 
 Then restart Plasma System Monitor or log out/in.
 
+### System dependency
+
+The generator requires **PyGObject** for D-Bus sensor discovery. It is not pip-installable and must be installed via your system package manager:
+
+```bash
+# Debian/Ubuntu
+sudo apt install python3-gi gir1.2-glib
+
+# Fedora
+sudo dnf install python3-gobject glib2
+
+# Arch
+sudo pacman -S python-gobject glib2
+
+# openSUSE
+sudo zypper install python3-gobject
+```
+
 ## Generator
 
 The `generate_pages/` package auto-discovers your system's sensors via D-Bus (ksystemstats) and generates adapted `.page` files.
@@ -31,7 +61,7 @@ The `generate_pages/` package auto-discovers your system's sensors via D-Bus (ks
 ### Requirements
 
 - Python 3.10+
-- `PyGObject` (for D-Bus access to ksystemstats)
+- PyGObject (see [system dependency](#system-dependency) above)
 - KDE Plasma 6 with ksystemstats running
 
 ### Usage

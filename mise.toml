@@ -1,0 +1,44 @@
+[tools]
+python = "3.12"
+uv = "0.12"
+ruff = "latest"
+
+[tasks.install]
+run = "uv sync --dev"
+description = "Install dependencies including dev"
+
+[tasks.run]
+run = "uv run python -m generate_pages"
+description = "Run page generator"
+
+[tasks.sensors]
+run = "uv run python -m generate_pages --list-sensors"
+description = "List detected sensors"
+
+[tasks.gen]
+run = "uv run python -m generate_pages -o ."
+description = "Generate pages (French)"
+
+[tasks.gen-en]
+run = "uv run python -m generate_pages -l en -o ."
+description = "Generate pages (English)"
+
+[tasks.validate]
+run = "uv run python -m generate_pages -v -o ."
+description = "Generate and validate"
+
+[tasks.lint]
+run = "uv run ruff check generate_pages/"
+description = "Lint with ruff"
+
+[tasks.fmt]
+run = "uv run ruff format generate_pages/"
+description = "Format with ruff"
+
+[tasks.typecheck]
+run = "uv run mypy generate_pages/"
+description = "Type check with mypy"
+
+[tasks.check]
+depends = ["lint", "fmt", "typecheck"]
+description = "Run all checks"

@@ -18,18 +18,18 @@ from ..blocks import (
     blk_textonly,
     blk_title_row,
 )
-from ..constants import RGB
+from ..constants import COLOR_DGPU, COLOR_IGPU, RGB
 from ..i18n import t
 from ..sensors import SensorGroups
 
-GPU_COLORS: dict[str, RGB] = {"gpu0": (127, 140, 141), "gpu1": (41, 128, 185)}
+GPU_COLORS: dict[str, RGB] = {"gpu0": COLOR_DGPU, "gpu1": COLOR_IGPU}
 GPU_LABELS: dict[str, str] = {"gpu0": "sensor.gpu.dgpu", "gpu1": "sensor.gpu.igpu"}
 
 
 def _gpu_col(gpu_id: str) -> RGB:
     """Return the default color for a GPU."""
     base = gpu_id.split("/")[0] if "/" in gpu_id else gpu_id
-    return GPU_COLORS.get(base, (41, 128, 185))
+    return GPU_COLORS.get(base, COLOR_IGPU)
 
 
 def _gpu_label(gpu_id: str, metric: str = "", lang: str = "fr") -> str:

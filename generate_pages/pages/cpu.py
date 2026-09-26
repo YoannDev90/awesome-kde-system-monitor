@@ -24,7 +24,7 @@ from ..blocks import (
     blk_textonly,
     blk_title_row,
 )
-from ..constants import RGB, palette_color
+from ..constants import COLOR_CPU_FREQ, COLOR_CPU_TOTAL, COLOR_FACEGRID_FALLBACK, RGB, palette_color
 from ..i18n import t
 from ..kconfig import kk, kp
 from ..sensors import SensorGroups
@@ -69,14 +69,14 @@ def generate(groups: SensorGroups, lang: str = "fr") -> str | None:
 
         P.append(blk_appearance(2101, "org.kde.ksysguard.facegrid", "face.cpu.per_core", lang))
         P.append(blk_sensors(2101, [kp(r"cpu/cpu\d+/usage")]))
-        P.append(blk_colors(2101, {kk(r"cpu/cpu\d+/usage"): (95, 61, 233), **cc}))
+        P.append(blk_colors(2101, {kk(r"cpu/cpu\d+/usage"): COLOR_FACEGRID_FALLBACK, **cc}))
         P.append(blk_labels(2101, cl))
         P.append(blk_facegrid(2101, ncols))
 
     # --- Face 2: frequency (linechart, max 6 lines) ---
     fr = _sorted_cores(cores, "/frequency")
     if fr:
-        fc: dict[str, RGB] = {s: (142, 68, 173) for s in fr}
+        fc: dict[str, RGB] = {s: COLOR_CPU_FREQ for s in fr}
         fl = {s: f"{t('sensor.cpu.core', lang=lang)} {i + 1}" for i, s in enumerate(fr)}
         P.append(blk_appearance(2102, "org.kde.ksysguard.linechart", "face.cpu.freq_mhz", lang))
         P.append(blk_sensors(2102, fr[:6]))
@@ -92,7 +92,7 @@ def generate(groups: SensorGroups, lang: str = "fr") -> str | None:
         ncols = max(1, int(math.sqrt(len(ct)) + 0.999))
         P.append(blk_appearance(2103, "org.kde.ksysguard.facegrid", "face.cpu.per_core", lang))
         P.append(blk_sensors(2103, [kp(r"cpu/cpu\d+/temperature")]))
-        P.append(blk_colors(2103, {kk(r"cpu/cpu\d+/temperature"): (95, 61, 233), **tc}))
+        P.append(blk_colors(2103, {kk(r"cpu/cpu\d+/temperature"): COLOR_FACEGRID_FALLBACK, **tc}))
         P.append(blk_labels(2103, tl))
         P.append(blk_facegrid(2103, ncols))
 
@@ -113,7 +113,7 @@ def generate(groups: SensorGroups, lang: str = "fr") -> str | None:
         ti = ["cpu/all/usage"]
     P.append(blk_appearance(2105, "org.kde.ksysguard.textonly", "face.cpu.overview", lang))
     P.append(blk_sensors(2105, ti))
-    P.append(blk_colors(2105, {s: (41, 128, 185) for s in ti}))
+    P.append(blk_colors(2105, {s: COLOR_CPU_TOTAL for s in ti}))
     overview_labels = {
         "cpu/all/usage": t("sensor.cpu.overview.usage", lang=lang),
         "cpu/all/maximumUsage": t("sensor.cpu.overview.peak", lang=lang),

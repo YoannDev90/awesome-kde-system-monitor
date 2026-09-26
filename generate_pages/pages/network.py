@@ -17,6 +17,7 @@ from ..blocks import (
     blk_textonly,
     blk_title_row,
 )
+from ..constants import COLOR_DOWNLOAD, COLOR_UPLOAD
 from ..i18n import t
 from ..kconfig import kk, kp
 from ..sensors import SensorGroups
@@ -41,29 +42,25 @@ def generate(groups: SensorGroups, lang: str = "fr") -> str | None:
     P.append(blk_title_row("page.network", lang))
 
     # --- Speed (linechart with pattern) ---
-    P.append(blk_appearance(2401, "org.kde.ksysguard.linechart", "face.net.rate", lang))
-    P.append(
-        blk_sensors(
-            2401,
-            [
-                kp(r"network/(?!all).*/download"),
-                kp(r"network/(?!all).*/upload"),
-            ],
-        )
-    )
+    P.append(blk_appearance(2401, "org.kde.ksysguard.linechart",
+                            "face.net.rate", lang))
+    P.append(blk_sensors(2401, [
+        kp(r"network/(?!all).*/download"),
+        kp(r"network/(?!all).*/upload"),
+    ]))
 
     # Pattern colors + per-interface
     dl_k = kk(r"network/(?!all).*/download")
     ul_k = kk(r"network/(?!all).*/upload")
     clines = [
         "[Face-2401][SensorColors]",
-        f"{dl_k}=41,128,185",
-        f"{ul_k}=39,174,96",
+        f"{dl_k}={COLOR_DOWNLOAD[0]},{COLOR_DOWNLOAD[1]},{COLOR_DOWNLOAD[2]}",
+        f"{ul_k}={COLOR_UPLOAD[0]},{COLOR_UPLOAD[1]},{COLOR_UPLOAD[2]}",
     ]
     llines = ["[Face-2401][SensorLabels]"]
     for iface in sorted(np.keys()):
-        clines.append(f"network/{iface}/download=41,128,185")
-        clines.append(f"network/{iface}/upload=39,174,96")
+        clines.append(f"network/{iface}/download={COLOR_DOWNLOAD[0]},{COLOR_DOWNLOAD[1]},{COLOR_DOWNLOAD[2]}")
+        clines.append(f"network/{iface}/upload={COLOR_UPLOAD[0]},{COLOR_UPLOAD[1]},{COLOR_UPLOAD[2]}")
         llines.append(f"network/{iface}/download={t('sensor.net.download', lang=lang)}")
         llines.append(f"network/{iface}/upload={t('sensor.net.upload', lang=lang)}")
     P.append("\n".join(clines) + "\n")
@@ -79,24 +76,26 @@ def generate(groups: SensorGroups, lang: str = "fr") -> str | None:
             if "/download" not in sid and "/upload" not in sid:
                 info_ids.append(sid)
                 for pat, lbl_key, col in [
-                    ("linkStrength", "sensor.temp.wifi_signal", (39, 174, 96)),
-                    ("ipv4", "IPv4", (41, 128, 185)),
+                    ("linkStrength", "sensor.temp.wifi_signal", COLOR_UPLOAD),
+                    ("ipv4", "IPv4", COLOR_DOWNLOAD),
                     ("ipv6", "IPv6", (61, 233, 140)),
-                    ("ssid", "SSID", (41, 128, 185)),
-                    ("interface", "Interface", (41, 128, 185)),
+                    ("ssid", "SSID", COLOR_DOWNLOAD),
+                    ("interface", "Interface", COLOR_DOWNLOAD),
                     ("type", "Type", (142, 68, 173)),
                 ]:
                     if pat in sid:
-                        ilabs[sid] = (
-                            t(lbl_key, lang=lang) if lbl_key.startswith("sensor.") else lbl_key
-                        )
+                        if lbl_key.startswith("sensor."):
+                            ilabs[sid] = t(lbl_key, lang=lang)
+                        else:
+                            ilabs[sid] = lbl_key
                         icols[sid] = col
                         break
                 else:
-                    icols[sid] = (41, 128, 185)
+                    icols[sid] = COLOR_DOWNLOAD
 
     if info_ids:
-        P.append(blk_appearance(2402, "org.kde.ksysguard.textonly", "face.net.connection", lang))
+        P.append(blk_appearance(2402, "org.kde.ksysguard.textonly",
+                                "face.net.connection", lang))
         P.append(blk_sensors(2402, info_ids[:6]))
         P.append(blk_colors(2402, icols))
         P.append(blk_labels(2402, ilabs))
@@ -111,13 +110,13 @@ def generate(groups: SensorGroups, lang: str = "fr") -> str | None:
             sid = f"network/{iface}/{m}Total"
             if any(sid in s for s in np.values()):
                 cumul_ids.append(sid)
-                ccol[sid] = (41, 128, 185) if "download" in m else (39, 174, 96)
-                clbl[sid] = t(
-                    "sensor.net.total_dl" if "download" in m else "sensor.net.total_ul", lang=lang
-                )
+                ccol[sid] = COLOR_DOWNLOAD if "download" in m else COLOR_UPLOAD
+                key = "sensor.net.total_dl" if "download" in m else "sensor.net.total_ul"
+                clbl[sid] = t(key, lang=lang)
 
     if cumul_ids:
-        P.append(blk_appearance(2403, "org.kde.ksysguard.linechart", "face.net.cumul", lang))
+        P.append(blk_appearance(2403, "org.kde.ksysguard.linechart",
+                                "face.net.cumul", lang))
         P.append(blk_sensors(2403, cumul_ids))
         P.append(blk_colors(2403, ccol))
         P.append(blk_labels(2403, clbl))

@@ -18,6 +18,7 @@ from ..blocks import (
     blk_textonly,
     blk_title_row,
 )
+from ..constants import COLOR_SWAP, COLOR_USED
 from ..i18n import t
 from ..sensors import SensorGroups
 
@@ -42,24 +43,22 @@ def generate(groups: SensorGroups, lang: str = "fr") -> str | None:
     P.append(blk_title_row("page.memory", lang))
 
     # --- Physical usage (%) ---
-    P.append(blk_appearance(2201, "org.kde.ksysguard.linechart", "face.memory.usage_pct", lang))
+    P.append(blk_appearance(2201, "org.kde.ksysguard.linechart",
+                            "face.memory.usage_pct", lang))
     P.append(blk_sensors(2201, ["memory/physical/usedPercent"]))
-    P.append(blk_colors(2201, {"memory/physical/usedPercent": (233, 61, 142)}))
+    P.append(blk_colors(2201, {"memory/physical/usedPercent": COLOR_USED}))
     P.append(blk_labels(2201, {"memory/physical/usedPercent": t("sensor.mem.used", lang=lang)}))
-    P.append(
-        blk_linechart(2201, rangeAutoY="false", rangeFromY=0, rangeToY=100, lineChartFillOpacity=25)
-    )
+    P.append(blk_linechart(2201, rangeAutoY="false", rangeFromY=0,
+                           rangeToY=100, lineChartFillOpacity=25))
 
     # --- Volumes (textonly) ---
-    vi = [
-        s
-        for s in ["memory/physical/used", "memory/physical/free", "memory/physical/total"]
-        if s in mem
-    ]
+    vi = [s for s in ["memory/physical/used", "memory/physical/free",
+                       "memory/physical/total"] if s in mem]
     if vi:
-        P.append(blk_appearance(2202, "org.kde.ksysguard.textonly", "face.memory.volumes", lang))
+        P.append(blk_appearance(2202, "org.kde.ksysguard.textonly",
+                                "face.memory.volumes", lang))
         P.append(blk_sensors(2202, vi))
-        P.append(blk_colors(2202, {s: (233, 61, 142) for s in vi}))
+        P.append(blk_colors(2202, {s: COLOR_USED for s in vi}))
         vol_labels = {
             "memory/physical/used": t("sensor.mem.used", lang=lang),
             "memory/physical/free": t("sensor.mem.free", lang=lang),
@@ -70,27 +69,25 @@ def generate(groups: SensorGroups, lang: str = "fr") -> str | None:
 
     # --- Swap (%) ---
     if swp:
-        P.append(blk_appearance(2203, "org.kde.ksysguard.linechart", "face.memory.swap_pct", lang))
+        P.append(blk_appearance(2203, "org.kde.ksysguard.linechart",
+                                "face.memory.swap_pct", lang))
         P.append(blk_sensors(2203, ["memory/swap/usedPercent"]))
-        P.append(blk_colors(2203, {"memory/swap/usedPercent": (142, 68, 173)}))
-        P.append(
-            blk_labels(2203, {"memory/swap/usedPercent": t("sensor.mem.swap_used", lang=lang)})
-        )
-        P.append(
-            blk_linechart(
-                2203, rangeAutoY="false", rangeFromY=0, rangeToY=100, lineChartFillOpacity=20
-            )
-        )
+        P.append(blk_colors(2203, {"memory/swap/usedPercent": COLOR_SWAP}))
+        P.append(blk_labels(2203, {
+            "memory/swap/usedPercent": t("sensor.mem.swap_used", lang=lang)
+        }))
+        P.append(blk_linechart(2203, rangeAutoY="false", rangeFromY=0,
+                               rangeToY=100, lineChartFillOpacity=20))
 
     # --- Swap volumes (textonly) ---
     if swp:
-        sv = [s for s in ["memory/swap/used", "memory/swap/free", "memory/swap/total"] if s in swp]
+        sv = [s for s in ["memory/swap/used", "memory/swap/free",
+                           "memory/swap/total"] if s in swp]
         if sv:
-            P.append(
-                blk_appearance(2204, "org.kde.ksysguard.textonly", "face.memory.swap_volumes", lang)
-            )
+            P.append(blk_appearance(2204, "org.kde.ksysguard.textonly",
+                                    "face.memory.swap_volumes", lang))
             P.append(blk_sensors(2204, sv))
-            P.append(blk_colors(2204, {s: (142, 68, 173) for s in sv}))
+            P.append(blk_colors(2204, {s: COLOR_SWAP for s in sv}))
             swap_labels = {
                 "memory/swap/used": t("sensor.mem.swap_used", lang=lang),
                 "memory/swap/free": t("sensor.mem.free", lang=lang),

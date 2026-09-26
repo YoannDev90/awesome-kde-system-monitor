@@ -13,6 +13,8 @@ Custom pages for KDE Plasma System Monitor. Includes pre-generated `.page` files
 | `GPU.page` | dGPU/iGPU usage, VRAM, frequencies, temperature details |
 | `Reseau.page` | Network speed, connection info, cumulative totals |
 | `Temperatures.page` | CPU/GPU temps, lm-sensors, per-core temps, fans |
+| `Alimentation.page` | Battery charge, power supply details |
+| `Systeme.page` | OS info (hostname, uptime, kernel) |
 
 ## Installation
 
@@ -81,6 +83,32 @@ python3 -m generate_pages -o ./output
 
 # Generate + validate
 python3 -m generate_pages -v
+
+# Show diff before overwriting
+python3 -m generate_pages --diff
+
+# Preview what would be generated
+python3 -m generate_pages --preview
+
+# Fetch live sensor values
+python3 -m generate_pages --live
+
+# Watch mode (regenerate every 30s)
+python3 -m generate_pages --watch
+
+# Show color palette
+python3 -m generate_pages --show-colors
+```
+
+### Tasks (mise)
+
+```bash
+mise run gen        # Generate pages (French)
+mise run gen-en     # Generate pages (English)
+mise run validate   # Generate + validate
+mise run check      # Lint + format + typecheck + tests
+mise run test       # Run unit tests
+mise run sensors    # List detected sensors
 ```
 
 ### Project Structure
@@ -90,7 +118,7 @@ generate_pages/
   __init__.py        # Package metadata
   __main__.py        # CLI entry point, validation
   blocks.py          # KConfig block generators (faces, layouts)
-  constants.py       # Color palette, AIO face IDs
+  constants.py       # Color palette, semantic colors, AIO face IDs
   kconfig.py         # Regex escaping helpers (kp, kk)
   sensors.py         # D-Bus sensor discovery and grouping
   palette.json       # 64-color palette (R, G, B)
@@ -100,12 +128,15 @@ generate_pages/
     en.json          # English translations
   pages/
     __init__.py      # Generator registry
+    overview.py      # Overview dashboard generator
     cpu.py           # CPU page generator
     memory.py        # Memory page generator
     disks.py         # Disk page generator
     network.py       # Network page generator
     gpu.py           # GPU page generator
     temperatures.py  # Temperature page generator
+    power.py         # Power page generator
+    os.py            # OS page generator
 ```
 
 ## Internationalization (i18n)
@@ -124,10 +155,10 @@ Keys follow the pattern `category.specific_name`:
 
 | Prefix | Scope | Example |
 |--------|-------|---------|
-| `page.*` | Page titles | `page.cpu` → "Processeur" / "CPU" |
-| `face.*` | Face/widget titles | `face.cpu.per_core` → "Utilisation par cœur" |
-| `sensor.*` | Sensor labels | `sensor.cpu.core` → "Cœur" / "Core" |
-| `ui.*` | UI elements | `ui.download` → "↓ Téléchargement" |
+| `page.*` | Page titles | `page.cpu` -> "Processeur" / "CPU" |
+| `face.*` | Face/widget titles | `face.cpu.per_core` -> "Utilisation par coeur" |
+| `sensor.*` | Sensor labels | `sensor.cpu.core` -> "Coeur" / "Core" |
+| `ui.*` | UI elements | `ui.download` -> "Telechargement" |
 
 Missing keys fall back to the key itself, so you can add new sensors without updating translations immediately.
 
@@ -135,7 +166,7 @@ Missing keys fall back to the key itself, so you can add new sensors without upd
 
 ### Colors
 
-Edit `generate_pages/palette.json` to change the 64-color palette. Colors cycle automatically for per-core and per-sensor views.
+Edit `generate_pages/palette.json` to change the 64-color palette. Colors cycle automatically for per-core and per-sensor views. Named semantic colors are defined in `constants.py`.
 
 ### Sensor Mapping
 
@@ -146,6 +177,19 @@ Each page generator in `generate_pages/pages/` maps sensor IDs to faces. Modify 
 `.page` files use KDE's KConfig INI format. Key escaping rules:
 - `highPrioritySensorIds`: regex patterns need 4 backslashes (e.g., `cpu/cpu\\\\d+/usage`)
 - `SensorColors`/`SensorLabels` keys: regex patterns need 2 backslashes (e.g., `cpu/cpu\\d+/usage`)
+
+## Development
+
+```bash
+# Install dev dependencies
+mise run install
+
+# Run all checks (lint, format, typecheck, tests)
+mise run check
+
+# Run tests only
+mise run test
+```
 
 ## License
 

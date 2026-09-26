@@ -13,7 +13,7 @@ from .pages import GENERATORS
 from .sensors import discover_sensors, group_sensors
 
 
-def print_sensor_report(groups):
+def print_sensor_report(groups: dict) -> None:
     """Print a report of detected sensors, grouped by type."""
     for key in [
         "cpu_cores",
@@ -41,7 +41,7 @@ def print_sensor_report(groups):
             print(f"    ... and {n - 20} more")
 
 
-def main():
+def main() -> None:
     """CLI entry point: discovery -> generation -> optional validation."""
     parser = argparse.ArgumentParser(
         description="Generate .page files for plasma-systemmonitor",
@@ -86,7 +86,7 @@ def main():
 
     os.makedirs(args.output_dir, exist_ok=True)
 
-    generated = []
+    generated: list[str] = []
     for fname, gen_func in GENERATORS.items():
         content = gen_func(groups, lang=args.lang)
         if content:
@@ -111,21 +111,28 @@ def main():
     print(f"\nDone: {len(generated)} page(s) in {args.output_dir}")
 
 
-def _validate_page(path, real_ids):
-    """Verify that all highPrioritySensorIds match at least one real sensor.
+def _validate_page(path: str, real_ids: list[str]) -> list[str]:
+    """Validate a .page file with multiple checks.
 
-    Patterns containing regex characters (\\, *, (, [) are tested as regex.
-    Literal IDs are looked up in the sensor set.
+    Checks:
+        1. Sensor patterns match at least one real sensor
+        2. No duplicate face IDs defined
+        3. All face IDs referenced in layout are defined
+        4. All defined faces are referenced in layout
     """
     real = set(real_ids)
-    problems = []
+    problems: list[str] = []
     with open(path) as f:
         content = f.read()
+
+    # 1. Sensor pattern matching
     for m in re.finditer(r"highPrioritySensorIds=\[(.*?)\]", content):
         for token in re.findall(r'"([^"]+)"', m.group(1)):
             if any(c in token for c in ["\\", "*", "(", "["]):
                 unescaped = (
-                    token.replace("\\\\\\\\", "\x00").replace("\\\\", "\\").replace("\x00", "\\\\")
+                    token.replace("\\\\\\\\", "\x00")
+                    .replace("\\\\", "\\")
+                    .replace("\x00", "\\\\")
                 )
                 matched = False
                 for rid in real:
@@ -141,6 +148,26 @@ def _validate_page(path, real_ids):
             else:
                 if token not in real:
                     problems.append(f"Missing sensor: {token}")
+
+    # 2. Duplicate face IDs
+    defined_faces = re.findall(r"\[Face-(\d+)\]\[Appearance\]", content)
+    seen: set[str] = set()
+    for fid in defined_faces:
+        if fid in seen:
+            problems.append(f"Duplicate face ID: Face-{fid}")
+        seen.add(fid)
+
+    # 3. Referenced faces exist
+    referenced_faces = re.findall(r"face=Face-(\d+)", content)
+    for fid in referenced_faces:
+        if fid not in defined_faces:
+            problems.append(f"Referenced face not defined: Face-{fid}")
+
+    # 4. Defined faces are referenced
+    for fid in defined_faces:
+        if fid not in referenced_faces:
+            problems.append(f"Defined face not referenced: Face-{fid}")
+
     return problems
 
 

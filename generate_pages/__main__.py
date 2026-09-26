@@ -5,12 +5,16 @@ for plasma-systemmonitor, and optionally validates sensor patterns.
 """
 
 import argparse
+import difflib
 import os
 import re
+import sys
+import time
 
+from .constants import PALETTE, rgb
 from .i18n import set_lang
 from .pages import GENERATORS
-from .sensors import discover_sensors, group_sensors
+from .sensors import discover_sensors, fetch_values, group_sensors
 
 
 def print_sensor_report(groups: dict) -> None:
@@ -41,36 +45,134 @@ def print_sensor_report(groups: dict) -> None:
             print(f"    ... and {n - 20} more")
 
 
+def _show_colors() -> None:
+    """Display the color palette in the terminal."""
+    print("Color palette (64 colors):")
+    for i, c in enumerate(PALETTE):
+        r, g, b = c
+        block = f"\033[48;2;{r};{g};{b}m  \033[0m"
+        print(f"  {i:2d}: {block} {rgb(c)}")
+    print()
+
+
+def _preview(groups: dict, lang: str) -> None:
+    """Show a summary of what would be generated."""
+    print("Preview of generated pages:")
+    for fname, gen_func in GENERATORS.items():
+        content = gen_func(groups, lang=lang)
+        if content:
+            n_faces = len(re.findall(r"\[Face-\d+\]\[Appearance\]", content))
+            n_rows = len(re.findall(r"\[page\]\[row-\d+\]", content))
+            lines = content.count("\n")
+            print(f"  {fname:24s}  {n_faces} faces, {n_rows} rows, {lines} lines")
+        else:
+            print(f"  {fname:24s}  (skipped — no sensors)")
+
+
+def _diff(path: str, new_content: str) -> bool:
+    """Show diff between existing file and new content. Returns True if different."""
+    if not os.path.exists(path):
+        print(f"  {os.path.basename(path)}: new file")
+        return True
+    with open(path) as f:
+        old_lines = f.readlines()
+    new_lines = new_content.splitlines(keepends=True)
+    diff = list(difflib.unified_diff(
+        old_lines, new_lines,
+        fromfile=f"a/{os.path.basename(path)}",
+        tofile=f"b/{os.path.basename(path)}",
+    ))
+    if not diff:
+        return False
+    for line in diff:
+        if line.startswith("+++") or line.startswith("---"):
+            print(line.rstrip())
+        elif line.startswith("+"):
+            print(f"\033[32m{line.rstrip()}\033[0m")
+        elif line.startswith("-"):
+            print(f"\033[31m{line.rstrip()}\033[0m")
+        else:
+            print(line.rstrip())
+    return True
+
+
+def _live(ids: list[str]) -> None:
+    """Fetch and display live sensor values."""
+    print("Fetching live sensor values...")
+    values = fetch_values(ids)
+    for sid in sorted(values):
+        val = values[sid]
+        print(f"  {sid}: {val}")
+
+
+def _watch(groups: dict, lang: str, output_dir: str, interval: int) -> None:
+    """Regenerate pages periodically."""
+    print(f"Watching for changes (Ctrl+C to stop, interval={interval}s)...")
+    try:
+        while True:
+            for fname, gen_func in GENERATORS.items():
+                content = gen_func(groups, lang=lang)
+                if content:
+                    path = os.path.join(output_dir, fname)
+                    with open(path, "w") as f:
+                        f.write(content)
+            sys.stdout.write(f"\r  Regenerated at {time.strftime('%H:%M:%S')}")
+            sys.stdout.flush()
+            time.sleep(interval)
+    except KeyboardInterrupt:
+        print("\n  Stopped watching.")
+
+
 def main() -> None:
     """CLI entry point: discovery -> generation -> optional validation."""
     parser = argparse.ArgumentParser(
         description="Generate .page files for plasma-systemmonitor",
     )
     parser.add_argument(
-        "-o",
-        "--output-dir",
-        default=".",
+        "-o", "--output-dir", default=".",
         help="Output directory (default: .)",
     )
     parser.add_argument(
-        "-v",
-        "--validate",
-        action="store_true",
+        "-v", "--validate", action="store_true",
         help="Validate generated files",
     )
     parser.add_argument(
-        "--list-sensors",
-        action="store_true",
+        "--list-sensors", action="store_true",
         help="List detected sensors and exit",
     )
     parser.add_argument(
-        "-l",
-        "--lang",
-        default="fr",
-        choices=["fr", "en"],
+        "-l", "--lang", default="fr", choices=["fr", "en"],
         help="Label language (default: fr)",
     )
+    parser.add_argument(
+        "--live", action="store_true",
+        help="Fetch and display live sensor values",
+    )
+    parser.add_argument(
+        "--diff", action="store_true",
+        help="Show diff before overwriting existing files",
+    )
+    parser.add_argument(
+        "--show-colors", action="store_true",
+        help="Display the color palette and exit",
+    )
+    parser.add_argument(
+        "--preview", action="store_true",
+        help="Show summary of what would be generated",
+    )
+    parser.add_argument(
+        "--watch", action="store_true",
+        help="Regenerate pages every 30s (Ctrl+C to stop)",
+    )
+    parser.add_argument(
+        "--interval", type=int, default=30,
+        help="Watch interval in seconds (default: 30)",
+    )
     args = parser.parse_args()
+
+    if args.show_colors:
+        _show_colors()
+        return
 
     set_lang(args.lang)
 
@@ -84,6 +186,19 @@ def main() -> None:
         print_sensor_report(groups)
         return
 
+    if args.preview:
+        _preview(groups, args.lang)
+        return
+
+    if args.live:
+        _live(ids)
+        return
+
+    if args.watch:
+        os.makedirs(args.output_dir, exist_ok=True)
+        _watch(groups, args.lang, args.output_dir, args.interval)
+        return
+
     os.makedirs(args.output_dir, exist_ok=True)
 
     generated: list[str] = []
@@ -91,6 +206,11 @@ def main() -> None:
         content = gen_func(groups, lang=args.lang)
         if content:
             path = os.path.join(args.output_dir, fname)
+            if args.diff and os.path.exists(path):
+                changed = _diff(path, content)
+                if not changed:
+                    print(f"  Unchanged: {fname}")
+                    continue
             with open(path, "w") as f:
                 f.write(content)
             print(f"  Generated: {fname}")

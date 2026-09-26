@@ -19,9 +19,10 @@ from ..blocks import (
     blk_title_row,
 )
 from ..i18n import t
+from ..sensors import SensorGroups
 
 
-def generate(groups, lang="fr"):
+def generate(groups: SensorGroups, lang: str = "fr") -> str | None:
     """Generate Memoire.page.
 
     Args:
@@ -36,7 +37,7 @@ def generate(groups, lang="fr"):
     if not mem:
         return None
 
-    P = []
+    P: list[str] = []
     P.append(blk_page("page.memory", "memory", lang))
     P.append(blk_title_row("page.memory", lang))
 

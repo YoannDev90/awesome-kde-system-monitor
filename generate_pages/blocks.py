@@ -5,13 +5,19 @@ Provides functions to build INI sections for .page files:
 - Layout: page, title row, content rows
 """
 
-from .constants import rgb
+from .constants import RGB, rgb
 from .i18n import t
 
 # --- Faces ---
 
 
-def blk_appearance(fid, chart, title_key, lang="fr", show_title=True):
+def blk_appearance(
+    fid: int,
+    chart: str,
+    title_key: str,
+    lang: str = "fr",
+    show_title: bool = True,
+) -> str:
     """Build [Face-N][Appearance] block with bilingual title.
 
     Args:
@@ -36,7 +42,7 @@ def blk_appearance(fid, chart, title_key, lang="fr", show_title=True):
     return "\n".join(lines) + "\n"
 
 
-def blk_sensors(fid, high, low=None):
+def blk_sensors(fid: int, high: list[str], low: list[str] | None = None) -> str:
     """Build [Face-N][Sensors] block with highPrioritySensorIds.
 
     Args:
@@ -49,7 +55,7 @@ def blk_sensors(fid, high, low=None):
     return f"[Face-{fid}][Sensors]\nhighPrioritySensorIds={h}\nlowPrioritySensorIds={lo}\n"
 
 
-def blk_colors(fid, cmap):
+def blk_colors(fid: int, cmap: dict[str, RGB]) -> str:
     """Build [Face-N][SensorColors] block with R,G,B values.
 
     Args:
@@ -62,7 +68,7 @@ def blk_colors(fid, cmap):
     return "\n".join(lines) + "\n"
 
 
-def blk_labels(fid, lmap):
+def blk_labels(fid: int, lmap: dict[str, str]) -> str:
     """Build [Face-N][SensorLabels] block with per-sensor labels.
 
     Args:
@@ -75,7 +81,7 @@ def blk_labels(fid, lmap):
     return "\n".join(lines) + "\n"
 
 
-def blk_linechart(fid, **kw):
+def blk_linechart(fid: int, **kw: object) -> str:
     """Build [Face-N][org.kde.ksysguard.linechart][General] block.
 
     Defaults: historyAmount=300, lineChartFillOpacity=20,
@@ -85,7 +91,7 @@ def blk_linechart(fid, **kw):
         fid: Numeric face ID.
         **kw: Override parameters (e.g. rangeAutoY="false").
     """
-    defaults = {
+    defaults: dict[str, object] = {
         "historyAmount": 300,
         "lineChartFillOpacity": 20,
         "rangeAutoY": "true",
@@ -98,7 +104,7 @@ def blk_linechart(fid, **kw):
     return "\n".join(lines) + "\n"
 
 
-def blk_textonly(fid, group=False):
+def blk_textonly(fid: int, group: bool = False) -> str:
     """Build [Face-N][org.kde.ksysguard.textonly][General] block.
 
     Args:
@@ -111,7 +117,11 @@ def blk_textonly(fid, group=False):
     )
 
 
-def blk_facegrid(fid, ncols=None, **kw):
+def blk_facegrid(
+    fid: int,
+    ncols: int | None = None,
+    **kw: object,
+) -> str:
     """Build [Face-N][org.kde.ksysguard.facegrid] block with mini-chart grid.
 
     Defaults: historyAmount=120, lineChartFillOpacity=100,
@@ -123,7 +133,7 @@ def blk_facegrid(fid, ncols=None, **kw):
         **kw: Override parameters (e.g. rangeAutoY="false").
     """
     chart = "org.kde.ksysguard.linechart"
-    defaults = {
+    defaults: dict[str, object] = {
         "historyAmount": 120,
         "lineChartFillOpacity": 100,
         "showGridLines": "false",
@@ -147,7 +157,7 @@ def blk_facegrid(fid, ncols=None, **kw):
     return "\n".join(lines) + "\n"
 
 
-def blk_piechart(fid):
+def blk_piechart(fid: int) -> str:
     """Build [Face-N][org.kde.ksysguard.piechart][General] block.
 
     Args:
@@ -159,7 +169,7 @@ def blk_piechart(fid):
 # --- Page layout ---
 
 
-def blk_page(title_key, icon, lang="fr"):
+def blk_page(title_key: str, icon: str, lang: str = "fr") -> str:
     """Build [page] block with bilingual title.
 
     Args:
@@ -178,7 +188,7 @@ def blk_page(title_key, icon, lang="fr"):
     )
 
 
-def blk_title_row(title_key, lang="fr"):
+def blk_title_row(title_key: str, lang: str = "fr") -> str:
     """Build [page][row-0] page title row.
 
     Args:
@@ -195,7 +205,7 @@ def blk_title_row(title_key, lang="fr"):
     )
 
 
-def blk_row(row, faces):
+def blk_row(row: int, faces: list[int]) -> str:
     """Build [page][row-N] with columns containing faces.
 
     Args:

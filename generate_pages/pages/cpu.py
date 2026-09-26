@@ -24,12 +24,13 @@ from ..blocks import (
     blk_textonly,
     blk_title_row,
 )
-from ..constants import palette_color
+from ..constants import RGB, palette_color
 from ..i18n import t
 from ..kconfig import kk, kp
+from ..sensors import SensorGroups
 
 
-def _sorted_cores(cores, suffix):
+def _sorted_cores(cores: list[str], suffix: str) -> list[str]:
     """Filter and sort per-core sensors by suffix.
 
     Example:
@@ -37,10 +38,10 @@ def _sorted_cores(cores, suffix):
         -> ["cpu/cpu0/usage", "cpu/cpu1/usage"]
     """
     filtered = [s for s in cores if s.endswith(suffix)]
-    return sorted(filtered, key=lambda x: int(re.search(r"(\d+)", x).group(1)))
+    return sorted(filtered, key=lambda x: int(re.search(r"(\d+)", x).group(1)))  # type: ignore[union-attr]
 
 
-def generate(groups, lang="fr"):
+def generate(groups: SensorGroups, lang: str = "fr") -> str | None:
     """Generate CPU.page.
 
     Args:
@@ -55,14 +56,14 @@ def generate(groups, lang="fr"):
     if not cores:
         return None
 
-    P = []
+    P: list[str] = []
     P.append(blk_page("page.cpu", "cpu", lang))
     P.append(blk_title_row("page.cpu", lang))
 
     # --- Face 1: per-core usage (facegrid) ---
     cu = _sorted_cores(cores, "/usage")
     if cu:
-        cc = {s: palette_color(i) for i, s in enumerate(cu)}
+        cc: dict[str, RGB] = {s: palette_color(i) for i, s in enumerate(cu)}
         cl = {s: f"{t('sensor.cpu.core', lang=lang)} {i + 1}" for i, s in enumerate(cu)}
         ncols = max(1, int(math.sqrt(len(cu)) + 0.999))
 
@@ -75,7 +76,7 @@ def generate(groups, lang="fr"):
     # --- Face 2: frequency (linechart, max 6 lines) ---
     fr = _sorted_cores(cores, "/frequency")
     if fr:
-        fc = {s: (142, 68, 173) for s in fr}
+        fc: dict[str, RGB] = {s: (142, 68, 173) for s in fr}
         fl = {s: f"{t('sensor.cpu.core', lang=lang)} {i + 1}" for i, s in enumerate(fr)}
         P.append(blk_appearance(2102, "org.kde.ksysguard.linechart", "face.cpu.freq_mhz", lang))
         P.append(blk_sensors(2102, fr[:6]))
@@ -86,7 +87,7 @@ def generate(groups, lang="fr"):
     # --- Face 3: per-core temperatures (facegrid) ---
     ct = _sorted_cores(cores, "/temperature")
     if ct:
-        tc = {s: palette_color(i) for i, s in enumerate(ct)}
+        tc: dict[str, RGB] = {s: palette_color(i) for i, s in enumerate(ct)}
         tl = {s: f"{t('sensor.cpu.core', lang=lang)} {i + 1}" for i, s in enumerate(ct)}
         ncols = max(1, int(math.sqrt(len(ct)) + 0.999))
         P.append(blk_appearance(2103, "org.kde.ksysguard.facegrid", "face.cpu.per_core", lang))
@@ -104,7 +105,7 @@ def generate(groups, lang="fr"):
         P.append(blk_piechart(2104))
 
     # --- Face 5: overview (textonly) ---
-    ti = []
+    ti: list[str] = []
     for k in ["cpu/all/usage", "cpu/all/maximumUsage", "cpu/all/averageFrequency"]:
         if k in cpu_all:
             ti.append(k)

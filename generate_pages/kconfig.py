@@ -6,7 +6,7 @@ Handles regex escaping differences between:
 """
 
 
-def kp(raw_regex):
+def kp(raw_regex: str) -> str:
     """Escape a regex for highPrioritySensorIds (4 backslashes in file).
 
     KConfig double-escapes backslashes in value strings, so a literal
@@ -15,7 +15,7 @@ def kp(raw_regex):
     return raw_regex.replace("\\", "\\\\\\\\")
 
 
-def kk(raw_regex):
+def kk(raw_regex: str) -> str:
     """Escape a regex for SensorColors/SensorLabels keys (2 backslashes).
 
     KConfig keys use single-escape, so a literal backslash appears

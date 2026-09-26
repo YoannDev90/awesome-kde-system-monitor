@@ -23,12 +23,13 @@ from ..blocks import (
     blk_textonly,
     blk_title_row,
 )
-from ..constants import palette_color
+from ..constants import RGB, palette_color
 from ..i18n import t
 from ..kconfig import kk, kp
+from ..sensors import SensorGroups
 
 
-def generate(groups, lang="fr"):
+def generate(groups: SensorGroups, lang: str = "fr") -> str | None:
     """Generate Temperatures.page.
 
     Args:
@@ -44,7 +45,7 @@ def generate(groups, lang="fr"):
     if not lm and not cpu_all:
         return None
 
-    P = []
+    P: list[str] = []
     P.append(blk_page("page.temperatures", "hwinfo", lang))
     P.append(blk_title_row("page.temperatures", lang))
 
@@ -87,8 +88,8 @@ def generate(groups, lang="fr"):
     # --- lm-sensors (linechart) ---
     lm_sorted = sorted(lm.keys())
     if lm_sorted:
-        lm_colors = {}
-        lm_labels = {}
+        lm_colors: dict[str, RGB] = {}
+        lm_labels: dict[str, str] = {}
         for i, s in enumerate(lm_sorted):
             lm_colors[s] = palette_color(i)
             chip = s.split("/")[1] if "/" in s else s
@@ -107,10 +108,10 @@ def generate(groups, lang="fr"):
     # --- Per-core temperature (facegrid) ---
     ct = sorted(
         set(s for s in cores if s.endswith("/temperature")),
-        key=lambda x: int(re.search(r"(\d+)", x).group(1)),
+        key=lambda x: int(re.search(r"(\d+)", x).group(1)),  # type: ignore[union-attr]
     )
     if ct:
-        tc = {s: palette_color(i) for i, s in enumerate(ct)}
+        tc: dict[str, RGB] = {s: palette_color(i) for i, s in enumerate(ct)}
         tl = {s: f"{t('sensor.temp.core', lang=lang)} {i + 1}" for i, s in enumerate(ct)}
         ncols = max(1, int(math.sqrt(len(ct)) + 0.999))
         P.append(blk_appearance(2603, "org.kde.ksysguard.facegrid", "face.temp.per_core", lang))
@@ -150,7 +151,7 @@ def generate(groups, lang="fr"):
 
     # --- Layout ---
     P.append(blk_row(1, [2601, 2602] if lm_sorted else [2601]))
-    rows2 = []
+    rows2: list[int] = []
     if ct:
         rows2.append(2603)
     if vi:

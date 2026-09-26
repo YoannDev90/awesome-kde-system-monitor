@@ -19,9 +19,10 @@ from ..blocks import (
 )
 from ..i18n import t
 from ..kconfig import kk, kp
+from ..sensors import SensorGroups
 
 
-def generate(groups, lang="fr"):
+def generate(groups: SensorGroups, lang: str = "fr") -> str | None:
     """Generate Reseau.page.
 
     Args:
@@ -35,7 +36,7 @@ def generate(groups, lang="fr"):
     if not np:
         return None
 
-    P = []
+    P: list[str] = []
     P.append(blk_page("page.network", "network-wired", lang))
     P.append(blk_title_row("page.network", lang))
 
@@ -54,7 +55,11 @@ def generate(groups, lang="fr"):
     # Pattern colors + per-interface
     dl_k = kk(r"network/(?!all).*/download")
     ul_k = kk(r"network/(?!all).*/upload")
-    clines = ["[Face-2401][SensorColors]", f"{dl_k}=41,128,185", f"{ul_k}=39,174,96"]
+    clines = [
+        "[Face-2401][SensorColors]",
+        f"{dl_k}=41,128,185",
+        f"{ul_k}=39,174,96",
+    ]
     llines = ["[Face-2401][SensorLabels]"]
     for iface in sorted(np.keys()):
         clines.append(f"network/{iface}/download=41,128,185")
@@ -66,9 +71,9 @@ def generate(groups, lang="fr"):
     P.append(blk_linechart(2401, lineChartFillOpacity=15, showGridLines="true"))
 
     # --- Connection info (textonly) ---
-    info_ids = []
-    icols = {}
-    ilabs = {}
+    info_ids: list[str] = []
+    icols: dict[str, tuple[int, int, int]] = {}
+    ilabs: dict[str, str] = {}
     for iface in sorted(np.keys()):
         for sid in sorted(np[iface]):
             if "/download" not in sid and "/upload" not in sid:
@@ -98,9 +103,9 @@ def generate(groups, lang="fr"):
         P.append(blk_textonly(2402))
 
     # --- Cumulative totals (linechart) ---
-    cumul_ids = []
-    ccol = {}
-    clbl = {}
+    cumul_ids: list[str] = []
+    ccol: dict[str, tuple[int, int, int]] = {}
+    clbl: dict[str, str] = {}
     for iface in sorted(np.keys()):
         for m in ["download", "upload"]:
             sid = f"network/{iface}/{m}Total"

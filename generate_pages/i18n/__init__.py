@@ -16,11 +16,11 @@ import os
 
 _DIR = os.path.dirname(__file__)
 
-_current_lang = "fr"
+_current_lang: str = "fr"
 _cache: dict[str, dict[str, str]] = {}
 
 
-def set_lang(lang):
+def set_lang(lang: str) -> None:
     """Set the active language and load its translations.
 
     Translations are cached to avoid re-reading JSON on every t() call.
@@ -33,7 +33,7 @@ def set_lang(lang):
     _load(lang)
 
 
-def _load(lang):
+def _load(lang: str) -> dict[str, str]:
     """Load and cache translations for a given language."""
     if lang in _cache:
         return _cache[lang]
@@ -46,7 +46,7 @@ def _load(lang):
     return _cache[lang]
 
 
-def t(key, lang=None, **kwargs):
+def t(key: str, lang: str | None = None, **kwargs: object) -> str:
     """Return the translation for the given key.
 
     If the key doesn't exist in the target language, returns the key itself.

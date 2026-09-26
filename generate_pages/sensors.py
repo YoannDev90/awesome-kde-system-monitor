@@ -11,18 +11,24 @@ installation instructions.
 import re
 import time
 from collections import defaultdict
+from typing import Any
 
 DEST = "org.kde.ksystemstats1"
 PATH = "/org/kde/ksystemstats1"
 IFACE = "org.kde.ksystemstats1"
 
+# Type alias for sensor groups
+SensorGroups = dict[str, Any]
 
-def _check_gi():
+
+def _check_gi() -> tuple[Any, Any]:
     """Import gi, raising a helpful error if PyGObject is missing."""
     try:
         import gi
+
         gi.require_version("Gio", "2.0")
         from gi.repository import Gio, GLib  # noqa: E402
+
         return Gio, GLib
     except ImportError:
         raise SystemExit(
@@ -38,7 +44,7 @@ def _check_gi():
         )
 
 
-def discover_sensors():
+def discover_sensors() -> list[str]:
     """Return a sorted list of all sensor IDs from ksystemstats.
 
     Calls the allSensors method over D-Bus and extracts the keys
@@ -60,7 +66,7 @@ def discover_sensors():
     return sorted(r.get_child_value(0).unpack().keys())
 
 
-def fetch_values(ids):
+def fetch_values(ids: list[str]) -> dict[str, Any]:
     """Fetch current values for a list of sensor IDs.
 
     Subscribes to the sensors, waits for data to accumulate,
@@ -88,7 +94,7 @@ def fetch_values(ids):
         None,
     )
     time.sleep(2)
-    results = {}
+    results: dict[str, Any] = {}
     for i in range(0, len(ids), 50):
         chunk = ids[i : i + 50]
         r = conn.call_sync(
@@ -118,7 +124,7 @@ def fetch_values(ids):
     return results
 
 
-def group_sensors(ids):
+def group_sensors(ids: list[str]) -> SensorGroups:
     """Group sensor IDs by functional category.
 
     Categories:
@@ -141,7 +147,7 @@ def group_sensors(ids):
     Returns:
         Dict with category keys and sensor data as values.
     """
-    g = {
+    g: SensorGroups = {
         "cpu_cores": [],
         "cpu_all": {},
         "memory": {},
@@ -183,6 +189,6 @@ def group_sensors(ids):
 
     g["cpu_cores"] = sorted(
         set(g["cpu_cores"]),
-        key=lambda x: int(re.search(r"(\d+)", x).group(1)),
+        key=lambda x: int(re.search(r"(\d+)", x).group(1)),  # type: ignore[union-attr]
     )
     return g

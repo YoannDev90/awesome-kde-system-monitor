@@ -17,9 +17,10 @@ from ..blocks import (
     blk_title_row,
 )
 from ..i18n import t
+from ..sensors import SensorGroups
 
 
-def generate(groups, lang="fr"):
+def generate(groups: SensorGroups, lang: str = "fr") -> str | None:
     """Generate Disques.page.
 
     Args:
@@ -34,7 +35,7 @@ def generate(groups, lang="fr"):
     if not dp and not da:
         return None
 
-    P = []
+    P: list[str] = []
     P.append(blk_page("page.disks", "drive-harddisk", lang))
     P.append(blk_title_row("page.disks", lang))
 

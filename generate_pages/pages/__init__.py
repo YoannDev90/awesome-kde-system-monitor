@@ -8,9 +8,11 @@ lang:   language code ("fr" or "en")
 Return: .page content or None if insufficient sensors.
 """
 
+from collections.abc import Callable
+
 from . import cpu, disks, gpu, memory, network, temperatures
 
-GENERATORS = {
+GENERATORS: dict[str, Callable[..., str | None]] = {
     "CPU.page": cpu.generate,
     "Memoire.page": memory.generate,
     "Disques.page": disks.generate,

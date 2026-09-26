@@ -7,6 +7,7 @@
   "page.temperatures": "Temperatures",
   "page.power": "Power",
   "page.os": "System",
+  "page.overview": "Overview",
 
   "face.cpu.per_core": "Per-core usage",
   "face.cpu.total_usage": "Total usage",

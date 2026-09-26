@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ### Added
 - Power page generator (battery/supply sensors)
 - OS page generator (hostname, uptime, system info)
-- Generated overview page (replaces static Page.page)
+- AllInOne overview page (CPU, GPU, Memory, Disks, Network, Temperatures)
 - CLI flags: `--live`, `--diff`, `--show-colors`, `--preview`, `--watch`
 - Unit tests (67 tests: kconfig, i18n, sensors, blocks, all generators)
 - Cross-validation in `--validate` (duplicate faces, orphan faces, unreferenced faces)

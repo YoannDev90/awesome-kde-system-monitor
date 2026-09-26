@@ -4,21 +4,40 @@ Custom pages for KDE Plasma System Monitor. Includes pre-generated `.page` files
 
 ## Pages
 
-| File | Description |
-|------|-------------|
-| `Page.page` | Overview dashboard (CPU, GPU, Memory, Swap, Disks, Network, Applications) |
-| `CPU.page` | Per-core usage grid, total usage, frequency, temperature, breakdown, load average |
-| `Memoire.page` | RAM usage %, physical volumes, swap usage |
-| `Disques.page` | Disk I/O activity, per-disk usage bars, root disk, space summary |
-| `GPU.page` | dGPU/iGPU usage, VRAM, frequencies, temperature details |
-| `Reseau.page` | Network speed, connection info, cumulative totals |
-| `Temperatures.page` | CPU/GPU temps, lm-sensors, per-core temps, fans |
-| `Alimentation.page` | Battery charge, power supply details |
-| `Systeme.page` | OS info (hostname, uptime, kernel) |
+| File | Description | Screenshot |
+|------|-------------|------------|
+| `CPU.page` | Per-core usage grid, total usage, frequency, temperature, breakdown, load average | [![CPU](screenshots/CPU.png)](screenshots/README.md#cpu) |
+| `Memoire.page` | RAM usage %, physical volumes, swap usage | [![Memoire](screenshots/Memoire.png)](screenshots/README.md#memoire) |
+| `Disques.page` | Disk I/O activity, per-disk usage bars, root disk, space summary | [![Disques](screenshots/Disques.png)](screenshots/README.md#disques) |
+| `GPU.page` | dGPU/iGPU usage, VRAM, frequencies, temperature details | [![GPU](screenshots/GPU.png)](screenshots/README.md#gpu) |
+| `Reseau.page` | Network speed, connection info, cumulative totals | [![Reseau](screenshots/Reseau.png)](screenshots/README.md#reseau) |
+| `Temperatures.page` | CPU/GPU temps, lm-sensors, per-core temps, fans | [![Temperatures](screenshots/Temperatures.png)](screenshots/README.md#temperatures) |
+| `Alimentation.page` | Battery charge, power supply details | [![Alimentation](screenshots/Alimentation.png)](screenshots/README.md#alimentation) |
+| `Systeme.page` | OS info (hostname, uptime, kernel) | [![Systeme](screenshots/Systeme.png)](screenshots/README.md#systeme) |
 
 ## Installation
 
-### Option 1: Install the CLI tool (recommended)
+### Option 1: One-liner install (recommended)
+
+```bash
+curl -sSL https://raw.githubusercontent.com/YoannDev90/awesome-kde-system-monitor/master/install.sh | bash
+```
+
+To copy pages only (no CLI tool):
+
+```bash
+curl -sSL https://raw.githubusercontent.com/YoannDev90/awesome-kde-system-monitor/master/install.sh | bash -s -- --pages-only
+```
+
+### Option 2: AUR (Arch Linux)
+
+```bash
+yay -S awesome-kde-system-monitor
+# or
+paru -S awesome-kde-system-monitor
+```
+
+### Option 3: uv (manual)
 
 Requires [uv](https://docs.astral.sh/uv/):
 
@@ -28,7 +47,7 @@ uv tool install "awesome-kde-system-monitor @ git+https://github.com/YoannDev90/
 
 This installs the `generate-pages` command globally. If PyGObject is missing, you'll get a clear error with install instructions for your distro.
 
-### Option 2: Copy pre-generated pages
+### Option 4: Copy pre-generated pages
 
 Copy the `.page` files into the Plasma System Monitor config directory:
 
@@ -128,7 +147,6 @@ generate_pages/
     en.json          # English translations
   pages/
     __init__.py      # Generator registry
-    overview.py      # Overview dashboard generator
     cpu.py           # CPU page generator
     memory.py        # Memory page generator
     disks.py         # Disk page generator

@@ -5,6 +5,7 @@
   "page.network": "Réseau",
   "page.gpu": "Carte graphique",
   "page.temperatures": "Températures",
+  "page.power": "Alimentation",
 
   "face.cpu.per_core": "Utilisation par cœur",
   "face.cpu.total_usage": "Utilisation totale",
@@ -40,6 +41,9 @@
   "face.temp.current": "Valeurs actuelles",
   "face.temp.fans": "Ventilateurs",
   "face.temp.other": "Autres capteurs",
+
+  "face.power.charge": "Charge batterie",
+  "face.power.details": "Détails alimentation",
 
   "sensor.cpu.core": "Cœur",
   "sensor.cpu.total": "Total",

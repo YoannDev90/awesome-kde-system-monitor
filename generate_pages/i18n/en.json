@@ -5,6 +5,7 @@
   "page.network": "Network",
   "page.gpu": "GPU",
   "page.temperatures": "Temperatures",
+  "page.power": "Power",
 
   "face.cpu.per_core": "Per-core usage",
   "face.cpu.total_usage": "Total usage",
@@ -40,6 +41,9 @@
   "face.temp.current": "Current values",
   "face.temp.fans": "Fans",
   "face.temp.other": "Other sensors",
+
+  "face.power.charge": "Battery charge",
+  "face.power.details": "Power details",
 
   "sensor.cpu.core": "Core",
   "sensor.cpu.total": "Total",

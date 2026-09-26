@@ -11,7 +11,6 @@ from generate_pages.pages.network import generate as net_gen
 from generate_pages.pages.gpu import generate as gpu_gen
 from generate_pages.pages.power import generate as power_gen
 from generate_pages.pages.os import generate as os_gen
-from generate_pages.pages.overview import generate as overview_gen
 from generate_pages.pages.temperatures import generate as temp_gen
 
 
@@ -141,29 +140,6 @@ class TestOsGenerator:
         assert "[page]" in result
 
 
-class TestOverviewGenerator:
-    def test_returns_none_without_sensors(self) -> None:
-        g = _empty_groups()
-        assert overview_gen(g) is None
-
-    def test_generates_with_cpu(self) -> None:
-        g = _empty_groups()
-        g["cpu_all"]["cpu/all/usage"] = True
-        result = overview_gen(g)
-        assert result is not None
-        assert "[page]" in result
-        assert "cpu/all/usage" in result
-
-    def test_includes_multiple_sections(self) -> None:
-        g = _empty_groups()
-        g["cpu_all"]["cpu/all/usage"] = True
-        g["memory"]["memory/physical/used"] = True
-        g["net_per"]["wlan0"] = {"network/wlan0/download"}
-        result = overview_gen(g)
-        assert result is not None
-        assert result.count("piechart") >= 2
-
-
 class TestTemperaturesGenerator:
     def test_returns_none_without_sensors(self) -> None:
         g = _empty_groups()
@@ -186,8 +162,7 @@ class TestTemperaturesGenerator:
 
 class TestGeneratorRegistry:
     def test_all_generators_registered(self) -> None:
-        assert len(GENERATORS) == 9
-        assert "Page.page" in GENERATORS
+        assert len(GENERATORS) == 8
         assert "CPU.page" in GENERATORS
         assert "Memoire.page" in GENERATORS
         assert "Disques.page" in GENERATORS

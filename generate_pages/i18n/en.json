@@ -6,6 +6,7 @@
   "page.gpu": "GPU",
   "page.temperatures": "Temperatures",
   "page.power": "Power",
+  "page.os": "System",
 
   "face.cpu.per_core": "Per-core usage",
   "face.cpu.total_usage": "Total usage",
@@ -44,6 +45,8 @@
 
   "face.power.charge": "Battery charge",
   "face.power.details": "Power details",
+
+  "face.os.info": "System information",
 
   "sensor.cpu.core": "Core",
   "sensor.cpu.total": "Total",

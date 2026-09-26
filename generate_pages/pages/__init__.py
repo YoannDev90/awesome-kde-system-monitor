@@ -10,7 +10,7 @@ Return: .page content or None if insufficient sensors.
 
 from collections.abc import Callable
 
-from . import cpu, disks, gpu, memory, network, power, temperatures
+from . import cpu, disks, gpu, memory, network, os, power, temperatures
 
 GENERATORS: dict[str, Callable[..., str | None]] = {
     "CPU.page": cpu.generate,
@@ -20,4 +20,5 @@ GENERATORS: dict[str, Callable[..., str | None]] = {
     "GPU.page": gpu.generate,
     "Temperatures.page": temperatures.generate,
     "Alimentation.page": power.generate,
+    "Systeme.page": os.generate,
 }

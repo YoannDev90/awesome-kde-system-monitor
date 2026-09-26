@@ -10,6 +10,7 @@ from generate_pages.pages.disks import generate as disk_gen
 from generate_pages.pages.network import generate as net_gen
 from generate_pages.pages.gpu import generate as gpu_gen
 from generate_pages.pages.power import generate as power_gen
+from generate_pages.pages.os import generate as os_gen
 from generate_pages.pages.temperatures import generate as temp_gen
 
 
@@ -126,6 +127,19 @@ class TestPowerGenerator:
         assert "[page]" in result
 
 
+class TestOsGenerator:
+    def test_returns_none_without_sensors(self) -> None:
+        g = _empty_groups()
+        assert os_gen(g) is None
+
+    def test_generates_with_os(self) -> None:
+        g = _empty_groups()
+        g["os"]["os/kernel/hostname"] = True
+        result = os_gen(g)
+        assert result is not None
+        assert "[page]" in result
+
+
 class TestTemperaturesGenerator:
     def test_returns_none_without_sensors(self) -> None:
         g = _empty_groups()
@@ -148,7 +162,7 @@ class TestTemperaturesGenerator:
 
 class TestGeneratorRegistry:
     def test_all_generators_registered(self) -> None:
-        assert len(GENERATORS) == 7
+        assert len(GENERATORS) == 8
         assert "CPU.page" in GENERATORS
         assert "Memoire.page" in GENERATORS
         assert "Disques.page" in GENERATORS
@@ -156,6 +170,7 @@ class TestGeneratorRegistry:
         assert "GPU.page" in GENERATORS
         assert "Temperatures.page" in GENERATORS
         assert "Alimentation.page" in GENERATORS
+        assert "Systeme.page" in GENERATORS
 
     def test_all_generators_callable(self) -> None:
         g = _empty_groups()

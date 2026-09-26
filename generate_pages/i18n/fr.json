@@ -6,6 +6,7 @@
   "page.gpu": "Carte graphique",
   "page.temperatures": "Températures",
   "page.power": "Alimentation",
+  "page.os": "Système",
 
   "face.cpu.per_core": "Utilisation par cœur",
   "face.cpu.total_usage": "Utilisation totale",
@@ -44,6 +45,8 @@
 
   "face.power.charge": "Charge batterie",
   "face.power.details": "Détails alimentation",
+
+  "face.os.info": "Informations système",
 
   "sensor.cpu.core": "Cœur",
   "sensor.cpu.total": "Total",

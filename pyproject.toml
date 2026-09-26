@@ -5,9 +5,7 @@ description = "Custom pages for KDE Plasma System Monitor with auto-adapting sen
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.10"
-dependencies = [
-    "pygobject",
-]
+dependencies = []
 
 [project.optional-dependencies]
 dev = [

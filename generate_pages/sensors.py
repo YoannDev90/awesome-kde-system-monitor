@@ -3,20 +3,39 @@
 Discovers all available hardware sensors (CPU, memory, disk, network,
 GPU, lm-sensors, etc.) and groups them by functional category for
 use by page generators.
+
+Requires PyGObject (gi). If missing, raises a clear error with
+installation instructions.
 """
 
 import re
 import time
 from collections import defaultdict
 
-import gi
-
-gi.require_version("Gio", "2.0")
-from gi.repository import Gio, GLib  # noqa: E402
-
 DEST = "org.kde.ksystemstats1"
 PATH = "/org/kde/ksystemstats1"
 IFACE = "org.kde.ksystemstats1"
+
+
+def _check_gi():
+    """Import gi, raising a helpful error if PyGObject is missing."""
+    try:
+        import gi
+        gi.require_version("Gio", "2.0")
+        from gi.repository import Gio, GLib  # noqa: E402
+        return Gio, GLib
+    except ImportError:
+        raise SystemExit(
+            "PyGObject (gi) is required but not installed.\n"
+            "\n"
+            "Install it with your system package manager:\n"
+            "  Debian/Ubuntu:  sudo apt install python3-gi gir1.2-glib\n"
+            "  Fedora:         sudo dnf install python3-gobject glib2\n"
+            "  Arch:           sudo pacman -S python-gobject glib2\n"
+            "  openSUSE:       sudo zypper install python3-gobject\n"
+            "\n"
+            "Then re-run this command."
+        )
 
 
 def discover_sensors():
@@ -25,6 +44,7 @@ def discover_sensors():
     Calls the allSensors method over D-Bus and extracts the keys
     from the returned {id: metadata} dictionary.
     """
+    Gio, GLib = _check_gi()
     conn = Gio.bus_get_sync(Gio.BusType.SESSION, None)
     r = conn.call_sync(
         DEST,
@@ -54,6 +74,7 @@ def fetch_values(ids):
     """
     if not ids:
         return {}
+    Gio, GLib = _check_gi()
     conn = Gio.bus_get_sync(Gio.BusType.SESSION, None)
     conn.call_sync(
         DEST,

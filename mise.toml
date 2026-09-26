@@ -40,5 +40,9 @@ run = "uv run mypy generate_pages/"
 description = "Type check with mypy"
 
 [tasks.check]
-depends = ["lint", "fmt", "typecheck"]
+depends = ["lint", "fmt", "typecheck", "test"]
 description = "Run all checks"
+
+[tasks.test]
+run = "uv run pytest tests/ -v"
+description = "Run unit tests"

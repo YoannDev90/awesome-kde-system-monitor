@@ -1,191 +1,3 @@
-# Processeur — page dédiée au CPU
-# Usage : copier dans ~/.local/share/plasma-systemmonitor/
-# Le motif "cpu/cpu\d+/usage" est étendu par SensorQuery en cpu/cpu0..cpuN/usage.
-
-[Face-2101][Appearance]
-chartFace=org.kde.ksysguard.facegrid
-title=Utilisation par cœur
-Title=Utilisation par cœur
-title[en]=Per-core usage
-Title[en]=Per-core usage
-
-[Face-2101][Sensors]
-highPrioritySensorIds=["cpu/cpu\\\\d+/usage"]
-lowPrioritySensorIds=[]
-
-[Face-2101][SensorColors]
-cpu/cpu0/usage=61,174,233
-cpu/cpu1/usage=225,61,233
-cpu/cpu2/usage=61,233,86
-cpu/cpu3/usage=191,61,233
-cpu/cpu4/usage=61,233,140
-cpu/cpu5/usage=155,61,233
-cpu/cpu6/usage=233,79,61
-cpu/cpu7/usage=61,202,233
-cpu/cpu8/usage=189,233,61
-cpu/cpu9/usage=61,96,233
-cpu/cpu10/usage=233,61,213
-cpu/cpu11/usage=233,61,141
-cpu/cpu\\d+/usage=95,61,233
-
-[Face-2101][SensorLabels]
-cpu/cpu0/usage=Cœur 1
-cpu/cpu1/usage=Cœur 2
-cpu/cpu2/usage=Cœur 3
-cpu/cpu3/usage=Cœur 4
-cpu/cpu4/usage=Cœur 5
-cpu/cpu5/usage=Cœur 6
-cpu/cpu6/usage=Cœur 7
-cpu/cpu7/usage=Cœur 8
-cpu/cpu8/usage=Cœur 9
-cpu/cpu9/usage=Cœur 10
-cpu/cpu10/usage=Cœur 11
-cpu/cpu11/usage=Cœur 12
-
-[Face-2101][org.kde.ksysguard.facegrid][General]
-columnCount=4
-faceId=org.kde.ksysguard.linechart
-
-[Face-2101][FaceGrid][Appearance]
-chartFace=org.kde.ksysguard.linechart
-showTitle=false
-
-[Face-2101][FaceGrid][org.kde.ksysguard.linechart][General]
-historyAmount=120
-lineChartFillOpacity=100
-rangeAutoY=false
-rangeFromY=0
-rangeToY=100
-showGridLines=false
-showYAxisLabels=false
-
-[Face-2102][Appearance]
-chartFace=org.kde.ksysguard.linechart
-title=Utilisation totale
-Title=Utilisation totale
-title[en]=Total usage
-Title[en]=Total usage
-
-[Face-2102][Sensors]
-highPrioritySensorIds=["cpu/all/usage"]
-lowPrioritySensorIds=[]
-
-[Face-2102][SensorColors]
-cpu/all/usage=41,128,185
-
-[Face-2102][SensorLabels]
-cpu/all/usage=Total
-
-[Face-2102][org.kde.ksysguard.linechart][General]
-historyAmount=300
-lineChartFillOpacity=30
-rangeAutoY=false
-rangeFromY=0
-rangeToY=100
-showLegend=false
-
-[Face-2103][Appearance]
-chartFace=org.kde.ksysguard.linechart
-title=Fréquence
-Title=Fréquence
-title[en]=Frequency
-Title[en]=Frequency
-
-[Face-2103][Sensors]
-highPrioritySensorIds=["cpu/all/averageFrequency","cpu/all/maximumFrequency","cpu/all/minimumFrequency"]
-lowPrioritySensorIds=[]
-
-[Face-2103][SensorColors]
-cpu/all/averageFrequency=41,128,185
-cpu/all/maximumFrequency=39,174,96
-cpu/all/minimumFrequency=243,156,18
-
-[Face-2103][SensorLabels]
-cpu/all/averageFrequency=Moyenne
-cpu/all/maximumFrequency=Maximum
-cpu/all/minimumFrequency=Minimum
-
-[Face-2103][org.kde.ksysguard.linechart][General]
-historyAmount=300
-lineChartFillOpacity=0
-rangeAutoY=true
-showLegend=true
-
-[Face-2104][Appearance]
-chartFace=org.kde.ksysguard.linechart
-title=Température
-Title=Température
-title[en]=Temperature
-Title[en]=Temperature
-
-[Face-2104][Sensors]
-highPrioritySensorIds=["cpu/all/averageTemperature","cpu/all/maximumTemperature"]
-lowPrioritySensorIds=[]
-
-[Face-2104][SensorColors]
-cpu/all/averageTemperature=41,128,185
-cpu/all/maximumTemperature=192,57,43
-
-[Face-2104][SensorLabels]
-cpu/all/averageTemperature=Moyenne
-cpu/all/maximumTemperature=Maximum
-
-[Face-2104][org.kde.ksysguard.linechart][General]
-historyAmount=300
-lineChartFillOpacity=15
-rangeAutoY=false
-rangeFromY=20
-rangeToY=110
-showLegend=true
-
-[Face-2105][Appearance]
-chartFace=org.kde.ksysguard.textonly
-title=Répartition
-Title=Répartition
-title[en]=Breakdown
-Title[en]=Breakdown
-
-[Face-2105][Sensors]
-highPrioritySensorIds=["cpu/all/system","cpu/all/user","cpu/all/wait"]
-lowPrioritySensorIds=[]
-
-[Face-2105][SensorColors]
-cpu/all/system=41,128,185
-cpu/all/user=39,174,96
-cpu/all/wait=243,156,18
-
-[Face-2105][SensorLabels]
-cpu/all/system=Système
-cpu/all/user=Utilisateur
-cpu/all/wait=Attente
-
-[Face-2105][org.kde.ksysguard.textonly][General]
-groupByTotal=false
-
-[Face-2106][Appearance]
-chartFace=org.kde.ksysguard.textonly
-title=Charge
-Title=Charge
-title[en]=Load average
-Title[en]=Load average
-
-[Face-2106][Sensors]
-highPrioritySensorIds=["cpu/loadaverages/loadaverage1","cpu/loadaverages/loadaverage5","cpu/loadaverages/loadaverage15"]
-lowPrioritySensorIds=[]
-
-[Face-2106][SensorColors]
-cpu/loadaverages/loadaverage1=41,128,185
-cpu/loadaverages/loadaverage5=142,68,173
-cpu/loadaverages/loadaverage15=127,140,141
-
-[Face-2106][SensorLabels]
-cpu/loadaverages/loadaverage1=1 minute
-cpu/loadaverages/loadaverage5=5 minutes
-cpu/loadaverages/loadaverage15=15 minutes
-
-[Face-2106][org.kde.ksysguard.textonly][General]
-groupByTotal=false
-
 [page]
 Title=Processeur
 title=Processeur
@@ -206,27 +18,236 @@ heightMode=minimum
 isTitle=true
 name=row-0
 
+[Face-2101][Appearance]
+chartFace=org.kde.ksysguard.facegrid
+title=Utilisation par cœur
+Title=Utilisation par cœur
+title[en]=Per-core usage
+Title[en]=Per-core usage
+
+[Face-2101][Sensors]
+highPrioritySensorIds=["cpu/cpu\\\\d+/usage"]
+lowPrioritySensorIds=[]
+
+[Face-2101][SensorColors]
+cpu/cpu0/usage=223,32,32
+cpu/cpu1/usage=244,102,88
+cpu/cpu10/usage=242,231,64
+cpu/cpu11/usage=248,255,26
+cpu/cpu2/usage=255,89,51
+cpu/cpu3/usage=226,103,54
+cpu/cpu4/usage=239,100,16
+cpu/cpu5/usage=255,160,77
+cpu/cpu6/usage=230,163,76
+cpu/cpu7/usage=241,172,40
+cpu/cpu8/usage=255,191,0
+cpu/cpu9/usage=233,212,99
+cpu/cpu\\d+/usage=95,61,233
+
+[Face-2101][SensorLabels]
+cpu/cpu0/usage=Cœur 1
+cpu/cpu1/usage=Cœur 2
+cpu/cpu10/usage=Cœur 11
+cpu/cpu11/usage=Cœur 12
+cpu/cpu2/usage=Cœur 3
+cpu/cpu3/usage=Cœur 4
+cpu/cpu4/usage=Cœur 5
+cpu/cpu5/usage=Cœur 6
+cpu/cpu6/usage=Cœur 7
+cpu/cpu7/usage=Cœur 8
+cpu/cpu8/usage=Cœur 9
+cpu/cpu9/usage=Cœur 10
+
+[Face-2101][org.kde.ksysguard.facegrid][General]
+columnCount=4
+faceId=org.kde.ksysguard.linechart
+[Face-2101][FaceGrid][Appearance]
+chartFace=org.kde.ksysguard.linechart
+showTitle=false
+[Face-2101][FaceGrid][org.kde.ksysguard.linechart][General]
+historyAmount=120
+lineChartFillOpacity=100
+showGridLines=false
+showYAxisLabels=false
+
+[Face-2102][Appearance]
+chartFace=org.kde.ksysguard.linechart
+title=Fréquence (MHz)
+Title=Fréquence (MHz)
+title[en]=Frequency (MHz)
+Title[en]=Frequency (MHz)
+
+[Face-2102][Sensors]
+highPrioritySensorIds=["cpu/cpu0/frequency","cpu/cpu1/frequency","cpu/cpu2/frequency","cpu/cpu3/frequency","cpu/cpu4/frequency","cpu/cpu5/frequency"]
+lowPrioritySensorIds=[]
+
+[Face-2102][SensorColors]
+cpu/cpu0/frequency=142,68,173
+cpu/cpu1/frequency=142,68,173
+cpu/cpu10/frequency=142,68,173
+cpu/cpu11/frequency=142,68,173
+cpu/cpu2/frequency=142,68,173
+cpu/cpu3/frequency=142,68,173
+cpu/cpu4/frequency=142,68,173
+cpu/cpu5/frequency=142,68,173
+cpu/cpu6/frequency=142,68,173
+cpu/cpu7/frequency=142,68,173
+cpu/cpu8/frequency=142,68,173
+cpu/cpu9/frequency=142,68,173
+
+[Face-2102][SensorLabels]
+cpu/cpu0/frequency=Cœur 1
+cpu/cpu1/frequency=Cœur 2
+cpu/cpu10/frequency=Cœur 11
+cpu/cpu11/frequency=Cœur 12
+cpu/cpu2/frequency=Cœur 3
+cpu/cpu3/frequency=Cœur 4
+cpu/cpu4/frequency=Cœur 5
+cpu/cpu5/frequency=Cœur 6
+cpu/cpu6/frequency=Cœur 7
+cpu/cpu7/frequency=Cœur 8
+cpu/cpu8/frequency=Cœur 9
+cpu/cpu9/frequency=Cœur 10
+
+[Face-2102][org.kde.ksysguard.linechart][General]
+historyAmount=300
+lineChartFillOpacity=15
+rangeAutoY=true
+showLegend=false
+
+[Face-2103][Appearance]
+chartFace=org.kde.ksysguard.facegrid
+title=Utilisation par cœur
+Title=Utilisation par cœur
+title[en]=Per-core usage
+Title[en]=Per-core usage
+
+[Face-2103][Sensors]
+highPrioritySensorIds=["cpu/cpu\\\\d+/temperature"]
+lowPrioritySensorIds=[]
+
+[Face-2103][SensorColors]
+cpu/cpu0/temperature=223,32,32
+cpu/cpu1/temperature=244,102,88
+cpu/cpu10/temperature=242,231,64
+cpu/cpu11/temperature=248,255,26
+cpu/cpu2/temperature=255,89,51
+cpu/cpu3/temperature=226,103,54
+cpu/cpu4/temperature=239,100,16
+cpu/cpu5/temperature=255,160,77
+cpu/cpu6/temperature=230,163,76
+cpu/cpu7/temperature=241,172,40
+cpu/cpu8/temperature=255,191,0
+cpu/cpu9/temperature=233,212,99
+cpu/cpu\\d+/temperature=95,61,233
+
+[Face-2103][SensorLabels]
+cpu/cpu0/temperature=Cœur 1
+cpu/cpu1/temperature=Cœur 2
+cpu/cpu10/temperature=Cœur 11
+cpu/cpu11/temperature=Cœur 12
+cpu/cpu2/temperature=Cœur 3
+cpu/cpu3/temperature=Cœur 4
+cpu/cpu4/temperature=Cœur 5
+cpu/cpu5/temperature=Cœur 6
+cpu/cpu6/temperature=Cœur 7
+cpu/cpu7/temperature=Cœur 8
+cpu/cpu8/temperature=Cœur 9
+cpu/cpu9/temperature=Cœur 10
+
+[Face-2103][org.kde.ksysguard.facegrid][General]
+columnCount=4
+faceId=org.kde.ksysguard.linechart
+[Face-2103][FaceGrid][Appearance]
+chartFace=org.kde.ksysguard.linechart
+showTitle=false
+[Face-2103][FaceGrid][org.kde.ksysguard.linechart][General]
+historyAmount=120
+lineChartFillOpacity=100
+showGridLines=false
+showYAxisLabels=false
+
+[Face-2104][Appearance]
+chartFace=org.kde.ksysguard.piechart
+title=Répartition
+Title=Répartition
+title[en]=Distribution
+Title[en]=Distribution
+
+[Face-2104][Sensors]
+highPrioritySensorIds=["cpu/cpu0/usage","cpu/cpu1/usage","cpu/cpu2/usage","cpu/cpu3/usage","cpu/cpu4/usage","cpu/cpu5/usage","cpu/cpu6/usage","cpu/cpu7/usage","cpu/cpu8/usage","cpu/cpu9/usage","cpu/cpu10/usage","cpu/cpu11/usage"]
+lowPrioritySensorIds=[]
+
+[Face-2104][SensorColors]
+cpu/cpu0/usage=223,32,32
+cpu/cpu1/usage=244,102,88
+cpu/cpu10/usage=242,231,64
+cpu/cpu11/usage=248,255,26
+cpu/cpu2/usage=255,89,51
+cpu/cpu3/usage=226,103,54
+cpu/cpu4/usage=239,100,16
+cpu/cpu5/usage=255,160,77
+cpu/cpu6/usage=230,163,76
+cpu/cpu7/usage=241,172,40
+cpu/cpu8/usage=255,191,0
+cpu/cpu9/usage=233,212,99
+
+[Face-2104][SensorLabels]
+cpu/cpu0/usage=Cœur 1
+cpu/cpu1/usage=Cœur 2
+cpu/cpu10/usage=Cœur 11
+cpu/cpu11/usage=Cœur 12
+cpu/cpu2/usage=Cœur 3
+cpu/cpu3/usage=Cœur 4
+cpu/cpu4/usage=Cœur 5
+cpu/cpu5/usage=Cœur 6
+cpu/cpu6/usage=Cœur 7
+cpu/cpu7/usage=Cœur 8
+cpu/cpu8/usage=Cœur 9
+cpu/cpu9/usage=Cœur 10
+
+[Face-2104][org.kde.ksysguard.piechart][General]
+showLegend=true
+
+[Face-2105][Appearance]
+chartFace=org.kde.ksysguard.textonly
+title=Vue d'ensemble
+Title=Vue d'ensemble
+title[en]=Overview
+Title[en]=Overview
+
+[Face-2105][Sensors]
+highPrioritySensorIds=["cpu/all/usage","cpu/all/averageFrequency"]
+lowPrioritySensorIds=[]
+
+[Face-2105][SensorColors]
+cpu/all/averageFrequency=41,128,185
+cpu/all/usage=41,128,185
+
+[Face-2105][SensorLabels]
+cpu/all/averageFrequency=Fréquence
+cpu/all/usage=Utilisation
+
+[Face-2105][org.kde.ksysguard.textonly][General]
+groupByTotal=false
+
 [page][row-1]
 Title=
 heightMode=balanced
 isTitle=false
 name=row-1
-
 [page][row-1][column-0]
 name=column-0
 noMargins=false
 showBackground=true
-
 [page][row-1][column-0][section-0]
 face=Face-2101
 isSeparator=false
 name=section-0
-
 [page][row-1][column-1]
 name=column-1
 noMargins=false
 showBackground=true
-
 [page][row-1][column-1][section-0]
 face=Face-2102
 isSeparator=false
@@ -237,22 +258,18 @@ Title=
 heightMode=balanced
 isTitle=false
 name=row-2
-
 [page][row-2][column-0]
 name=column-0
 noMargins=false
 showBackground=true
-
 [page][row-2][column-0][section-0]
 face=Face-2103
 isSeparator=false
 name=section-0
-
 [page][row-2][column-1]
 name=column-1
 noMargins=false
 showBackground=true
-
 [page][row-2][column-1][section-0]
 face=Face-2104
 isSeparator=false
@@ -260,26 +277,15 @@ name=section-0
 
 [page][row-3]
 Title=
-heightMode=minimum
+heightMode=balanced
 isTitle=false
 name=row-3
-
 [page][row-3][column-0]
 name=column-0
 noMargins=false
 showBackground=true
-
 [page][row-3][column-0][section-0]
 face=Face-2105
 isSeparator=false
 name=section-0
 
-[page][row-3][column-1]
-name=column-1
-noMargins=false
-showBackground=true
-
-[page][row-3][column-1][section-0]
-face=Face-2106
-isSeparator=false
-name=section-0

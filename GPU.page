@@ -1,111 +1,3 @@
-# Carte graphique — iGPU Cezanne (gpu1) et dGPU Navi 24 (gpu0)
-# gpu0/temperature est volontairement ignoré : capteur hors tension, valeur non initialisée.
-
-[Face-2501][Appearance]
-chartFace=org.kde.ksysguard.linechart
-title=Utilisation (%)
-Title=Utilisation (%)
-title[en]=Usage (%)
-Title[en]=Usage (%)
-
-[Face-2501][Sensors]
-highPrioritySensorIds=["gpu/gpu0/usage","gpu/gpu1/usage"]
-lowPrioritySensorIds=[]
-
-[Face-2501][SensorColors]
-gpu/gpu0/usage=127,140,141
-gpu/gpu1/usage=41,128,185
-
-[Face-2501][SensorLabels]
-gpu/gpu0/usage=dGPU
-gpu/gpu1/usage=iGPU
-
-[Face-2501][org.kde.ksysguard.linechart][General]
-historyAmount=300
-lineChartFillOpacity=25
-rangeAutoY=false
-rangeFromY=0
-rangeToY=100
-showLegend=true
-
-[Face-2502][Appearance]
-chartFace=org.kde.ksysguard.linechart
-title=Mémoire vidéo
-Title=Mémoire vidéo
-title[en]=Video memory
-Title[en]=Video memory
-
-[Face-2502][Sensors]
-highPrioritySensorIds=["gpu/gpu0/usedVram","gpu/gpu1/usedVram"]
-lowPrioritySensorIds=[]
-
-[Face-2502][SensorColors]
-gpu/gpu0/usedVram=127,140,141
-gpu/gpu1/usedVram=41,128,185
-
-[Face-2502][SensorLabels]
-gpu/gpu0/usedVram=dGPU
-gpu/gpu1/usedVram=iGPU
-
-[Face-2502][org.kde.ksysguard.linechart][General]
-historyAmount=300
-lineChartFillOpacity=20
-rangeAutoY=true
-showLegend=true
-
-[Face-2503][Appearance]
-chartFace=org.kde.ksysguard.linechart
-title=Fréquence (MHz)
-Title=Fréquence (MHz)
-title[en]=Frequency (MHz)
-Title[en]=Frequency (MHz)
-
-[Face-2503][Sensors]
-highPrioritySensorIds=["gpu/gpu1/coreFrequency","gpu/gpu1/memoryFrequency"]
-lowPrioritySensorIds=[]
-
-[Face-2503][SensorColors]
-gpu/gpu1/coreFrequency=41,128,185
-gpu/gpu1/memoryFrequency=142,68,173
-
-[Face-2503][SensorLabels]
-gpu/gpu1/coreFrequency=Cœur
-gpu/gpu1/memoryFrequency=Mémoire
-
-[Face-2503][org.kde.ksysguard.linechart][General]
-historyAmount=300
-lineChartFillOpacity=15
-rangeAutoY=true
-showLegend=true
-
-[Face-2504][Appearance]
-chartFace=org.kde.ksysguard.textonly
-title=Détail
-Title=Détail
-title[en]=Details
-Title[en]=Details
-
-[Face-2504][Sensors]
-highPrioritySensorIds=["gpu/gpu0/usage","gpu/gpu0/totalVram","gpu/gpu1/usage","gpu/gpu1/totalVram","gpu/gpu1/temperature"]
-lowPrioritySensorIds=[]
-
-[Face-2504][SensorColors]
-gpu/gpu0/usage=127,140,141
-gpu/gpu0/totalVram=127,140,141
-gpu/gpu1/usage=41,128,185
-gpu/gpu1/totalVram=41,128,185
-gpu/gpu1/temperature=192,57,43
-
-[Face-2504][SensorLabels]
-gpu/gpu0/usage=dGPU
-gpu/gpu0/totalVram=VRAM dGPU
-gpu/gpu1/usage=iGPU
-gpu/gpu1/totalVram=VRAM iGPU
-gpu/gpu1/temperature=Température
-
-[Face-2504][org.kde.ksysguard.textonly][General]
-groupByTotal=false
-
 [page]
 Title=Carte graphique
 title=Carte graphique
@@ -126,27 +18,138 @@ heightMode=minimum
 isTitle=true
 name=row-0
 
+[Face-2501][Appearance]
+chartFace=org.kde.ksysguard.linechart
+title=Utilisation (%)
+Title=Utilisation (%)
+title[en]=Usage (%)
+Title[en]=Usage (%)
+
+[Face-2501][Sensors]
+highPrioritySensorIds=["gpu/gpu0/usage","gpu/gpu1/usage"]
+lowPrioritySensorIds=[]
+
+[Face-2501][SensorColors]
+gpu/gpu0/usage=41,128,185
+gpu/gpu1/usage=41,128,185
+
+[Face-2501][SensorLabels]
+gpu/gpu0/usage=gpu
+gpu/gpu1/usage=gpu
+
+[Face-2501][org.kde.ksysguard.linechart][General]
+historyAmount=300
+lineChartFillOpacity=25
+rangeAutoY=false
+showLegend=true
+rangeFromY=0
+rangeToY=100
+
+[Face-2502][Appearance]
+chartFace=org.kde.ksysguard.linechart
+title=Mémoire vidéo
+Title=Mémoire vidéo
+title[en]=Video memory
+Title[en]=Video memory
+
+[Face-2502][Sensors]
+highPrioritySensorIds=["gpu/gpu0/usedVram","gpu/gpu1/usedVram"]
+lowPrioritySensorIds=[]
+
+[Face-2502][SensorColors]
+gpu/gpu0/usedVram=41,128,185
+gpu/gpu1/usedVram=41,128,185
+
+[Face-2502][SensorLabels]
+gpu/gpu0/usedVram=gpu
+gpu/gpu1/usedVram=gpu
+
+[Face-2502][org.kde.ksysguard.linechart][General]
+historyAmount=300
+lineChartFillOpacity=20
+rangeAutoY=true
+showLegend=true
+
+[Face-2503][Appearance]
+chartFace=org.kde.ksysguard.linechart
+title=Fréquence (MHz)
+Title=Fréquence (MHz)
+title[en]=Frequency (MHz)
+Title[en]=Frequency (MHz)
+
+[Face-2503][Sensors]
+highPrioritySensorIds=["gpu/gpu0/coreFrequency","gpu/gpu0/memoryFrequency","gpu/gpu1/coreFrequency","gpu/gpu1/memoryFrequency"]
+lowPrioritySensorIds=[]
+
+[Face-2503][SensorColors]
+gpu/gpu0/coreFrequency=41,128,185
+gpu/gpu0/memoryFrequency=142,68,173
+gpu/gpu1/coreFrequency=41,128,185
+gpu/gpu1/memoryFrequency=142,68,173
+
+[Face-2503][SensorLabels]
+gpu/gpu0/coreFrequency=Cœur
+gpu/gpu0/memoryFrequency=Mémoire
+gpu/gpu1/coreFrequency=Cœur
+gpu/gpu1/memoryFrequency=Mémoire
+
+[Face-2503][org.kde.ksysguard.linechart][General]
+historyAmount=300
+lineChartFillOpacity=15
+rangeAutoY=true
+showLegend=true
+
+[Face-2504][Appearance]
+chartFace=org.kde.ksysguard.textonly
+title=Détail
+Title=Détail
+title[en]=Details
+Title[en]=Details
+
+[Face-2504][Sensors]
+highPrioritySensorIds=["gpu/gpu0/usage","gpu/gpu0/totalVram","gpu/gpu0/temperature","gpu/gpu0/power","gpu/gpu1/usage","gpu/gpu1/totalVram","gpu/gpu1/temperature","gpu/gpu1/power"]
+lowPrioritySensorIds=[]
+
+[Face-2504][SensorColors]
+gpu/gpu0/power=41,128,185
+gpu/gpu0/temperature=41,128,185
+gpu/gpu0/totalVram=41,128,185
+gpu/gpu0/usage=41,128,185
+gpu/gpu1/power=41,128,185
+gpu/gpu1/temperature=41,128,185
+gpu/gpu1/totalVram=41,128,185
+gpu/gpu1/usage=41,128,185
+
+[Face-2504][SensorLabels]
+gpu/gpu0/power=gpu Power
+gpu/gpu0/temperature=gpu GPU
+gpu/gpu0/totalVram=gpu VRAM
+gpu/gpu0/usage=gpu Utilisation
+gpu/gpu1/power=gpu Power
+gpu/gpu1/temperature=gpu GPU
+gpu/gpu1/totalVram=gpu VRAM
+gpu/gpu1/usage=gpu Utilisation
+
+[Face-2504][org.kde.ksysguard.textonly][General]
+groupByTotal=false
+
 [page][row-1]
 Title=
 heightMode=balanced
 isTitle=false
 name=row-1
-
 [page][row-1][column-0]
 name=column-0
 noMargins=false
 showBackground=true
-
 [page][row-1][column-0][section-0]
 face=Face-2501
 isSeparator=false
 name=section-0
-
 [page][row-1][column-1]
 name=column-1
 noMargins=false
 showBackground=true
-
 [page][row-1][column-1][section-0]
 face=Face-2502
 isSeparator=false
@@ -157,23 +160,20 @@ Title=
 heightMode=balanced
 isTitle=false
 name=row-2
-
 [page][row-2][column-0]
 name=column-0
 noMargins=false
 showBackground=true
-
 [page][row-2][column-0][section-0]
 face=Face-2503
 isSeparator=false
 name=section-0
-
 [page][row-2][column-1]
 name=column-1
 noMargins=false
 showBackground=true
-
 [page][row-2][column-1][section-0]
 face=Face-2504
 isSeparator=false
 name=section-0
+

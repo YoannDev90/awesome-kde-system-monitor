@@ -1,203 +1,3 @@
-# Températures — CPU, GPU, SSD, carte mère, ventilation
-# gpu0/temperature exclu : capteur hors tension renvoyant une valeur non initialisée.
-
-[Face-2601][Appearance]
-chartFace=org.kde.ksysguard.linechart
-title=CPU et GPU
-Title=CPU et GPU
-title[en]=CPU and GPU
-Title[en]=CPU and GPU
-
-[Face-2601][Sensors]
-highPrioritySensorIds=["cpu/all/averageTemperature","cpu/all/maximumTemperature","gpu/gpu1/temperature"]
-lowPrioritySensorIds=[]
-
-[Face-2601][SensorColors]
-cpu/all/averageTemperature=41,128,185
-cpu/all/maximumTemperature=192,57,43
-gpu/gpu1/temperature=39,174,96
-
-[Face-2601][SensorLabels]
-cpu/all/averageTemperature=CPU moyenne
-cpu/all/maximumTemperature=CPU maximum
-gpu/gpu1/temperature=GPU
-
-[Face-2601][org.kde.ksysguard.linechart][General]
-historyAmount=300
-lineChartFillOpacity=15
-rangeAutoY=false
-rangeFromY=20
-rangeToY=110
-showLegend=true
-
-[Face-2602][Appearance]
-chartFace=org.kde.ksysguard.linechart
-title=Capteurs
-Title=Capteurs
-title[en]=Sensors
-Title[en]=Sensors
-
-[Face-2602][Sensors]
-highPrioritySensorIds=["lmsensors/nvme-pci-0700/temp1","lmsensors/nvme-pci-0700/temp2","lmsensors/nvme-pci-0700/temp3","lmsensors/acpitz-acpi-0/temp1","lmsensors/mt7921_phy0-pci-0500/temp1"]
-lowPrioritySensorIds=[]
-
-[Face-2602][SensorColors]
-lmsensors/nvme-pci-0700/temp1=41,128,185
-lmsensors/nvme-pci-0700/temp2=61,174,233
-lmsensors/nvme-pci-0700/temp3=142,68,173
-lmsensors/acpitz-acpi-0/temp1=192,57,43
-lmsensors/mt7921_phy0-pci-0500/temp1=243,156,18
-
-[Face-2602][SensorLabels]
-lmsensors/nvme-pci-0700/temp1=SSD 1
-lmsensors/nvme-pci-0700/temp2=SSD 2
-lmsensors/nvme-pci-0700/temp3=SSD 3
-lmsensors/acpitz-acpi-0/temp1=Boîtier
-lmsensors/mt7921_phy0-pci-0500/temp1=Wi-Fi
-
-[Face-2602][org.kde.ksysguard.linechart][General]
-historyAmount=300
-lineChartFillOpacity=15
-rangeAutoY=false
-rangeFromY=20
-rangeToY=110
-showLegend=true
-
-[Face-2603][Appearance]
-chartFace=org.kde.ksysguard.facegrid
-title=Températures par cœur
-Title=Températures par cœur
-title[en]=Per-core temperature
-Title[en]=Per-core temperature
-
-[Face-2603][Sensors]
-highPrioritySensorIds=["cpu/cpu\\\\d+/temperature"]
-lowPrioritySensorIds=[]
-
-[Face-2603][SensorColors]
-cpu/cpu0/temperature=61,174,233
-cpu/cpu1/temperature=225,61,233
-cpu/cpu2/temperature=61,233,86
-cpu/cpu3/temperature=191,61,233
-cpu/cpu4/temperature=61,233,140
-cpu/cpu5/temperature=155,61,233
-cpu/cpu6/temperature=233,79,61
-cpu/cpu7/temperature=61,202,233
-cpu/cpu8/temperature=189,233,61
-cpu/cpu9/temperature=61,96,233
-cpu/cpu10/temperature=233,61,213
-cpu/cpu11/temperature=233,61,141
-cpu/cpu\\d+/temperature=95,61,233
-
-[Face-2603][SensorLabels]
-cpu/cpu0/temperature=Cœur 1
-cpu/cpu1/temperature=Cœur 2
-cpu/cpu2/temperature=Cœur 3
-cpu/cpu3/temperature=Cœur 4
-cpu/cpu4/temperature=Cœur 5
-cpu/cpu5/temperature=Cœur 6
-cpu/cpu6/temperature=Cœur 7
-cpu/cpu7/temperature=Cœur 8
-cpu/cpu8/temperature=Cœur 9
-cpu/cpu9/temperature=Cœur 10
-cpu/cpu10/temperature=Cœur 11
-cpu/cpu11/temperature=Cœur 12
-
-[Face-2603][org.kde.ksysguard.facegrid][General]
-columnCount=4
-faceId=org.kde.ksysguard.linechart
-
-[Face-2603][FaceGrid][Appearance]
-chartFace=org.kde.ksysguard.linechart
-showTitle=false
-
-[Face-2603][FaceGrid][org.kde.ksysguard.linechart][General]
-historyAmount=120
-lineChartFillOpacity=100
-rangeAutoY=false
-rangeFromY=20
-rangeToY=110
-showGridLines=false
-showYAxisLabels=false
-
-[Face-2604][Appearance]
-chartFace=org.kde.ksysguard.textonly
-title=Valeurs actuelles
-Title=Valeurs actuelles
-title[en]=Current values
-Title[en]=Current values
-
-[Face-2604][Sensors]
-highPrioritySensorIds=["cpu/all/averageTemperature","gpu/gpu1/temperature","lmsensors/nvme-pci-0700/temp1","lmsensors/mt7921_phy0-pci-0500/temp1","lmsensors/acpitz-acpi-0/temp1"]
-lowPrioritySensorIds=[]
-
-[Face-2604][SensorColors]
-cpu/all/averageTemperature=41,128,185
-gpu/gpu1/temperature=39,174,96
-lmsensors/nvme-pci-0700/temp1=61,174,233
-lmsensors/mt7921_phy0-pci-0500/temp1=243,156,18
-lmsensors/acpitz-acpi-0/temp1=192,57,43
-
-[Face-2604][SensorLabels]
-cpu/all/averageTemperature=CPU
-gpu/gpu1/temperature=GPU
-lmsensors/nvme-pci-0700/temp1=SSD
-lmsensors/mt7921_phy0-pci-0500/temp1=Wi-Fi
-lmsensors/acpitz-acpi-0/temp1=Boîtier
-
-[Face-2604][org.kde.ksysguard.textonly][General]
-groupByTotal=false
-
-[Face-2605][Appearance]
-chartFace=org.kde.ksysguard.textonly
-title=Ventilateurs
-Title=Ventilateurs
-title[en]=Fans
-Title[en]=Fans
-
-[Face-2605][Sensors]
-highPrioritySensorIds=["lmsensors/hp-isa-0000/fan1","lmsensors/hp-isa-0000/fan2"]
-lowPrioritySensorIds=[]
-
-[Face-2605][SensorColors]
-lmsensors/hp-isa-0000/fan1=41,128,185
-lmsensors/hp-isa-0000/fan2=142,68,173
-
-[Face-2605][SensorLabels]
-lmsensors/hp-isa-0000/fan1=Ventilateur 1
-lmsensors/hp-isa-0000/fan2=Ventilateur 2
-
-[Face-2605][org.kde.ksysguard.textonly][General]
-groupByTotal=false
-
-[Face-2606][Appearance]
-chartFace=org.kde.ksysguard.textonly
-title=Autres capteurs
-Title=Autres capteurs
-title[en]=Other sensors
-Title[en]=Other sensors
-
-[Face-2606][Sensors]
-highPrioritySensorIds=["cpu/all/usage","memory/physical/usedPercent","memory/swap/usedPercent","disk/all/usedPercent","network/wlan0/signal"]
-lowPrioritySensorIds=[]
-
-[Face-2606][SensorColors]
-cpu/all/usage=41,128,185
-memory/physical/usedPercent=233,61,142
-memory/swap/usedPercent=142,68,173
-disk/all/usedPercent=41,128,185
-network/wlan0/signal=39,174,96
-
-[Face-2606][SensorLabels]
-cpu/all/usage=CPU
-memory/physical/usedPercent=Mémoire
-memory/swap/usedPercent=Swap
-disk/all/usedPercent=Disque
-network/wlan0/signal=Signal Wi-Fi
-
-[Face-2606][org.kde.ksysguard.textonly][General]
-groupByTotal=false
-
 [page]
 Title=Températures
 title=Températures
@@ -218,27 +18,211 @@ heightMode=minimum
 isTitle=true
 name=row-0
 
+[Face-2601][Appearance]
+chartFace=org.kde.ksysguard.linechart
+title=CPU et GPU
+Title=CPU et GPU
+title[en]=CPU and GPU
+Title[en]=CPU and GPU
+
+[Face-2601][Sensors]
+highPrioritySensorIds=["cpu/all/averageTemperature","cpu/all/maximumTemperature","gpu/gpu1/temperature"]
+lowPrioritySensorIds=[]
+
+[Face-2601][SensorColors]
+cpu/all/averageTemperature=41,128,185
+cpu/all/maximumTemperature=192,57,43
+gpu/gpu0/temperature=39,174,96
+gpu/gpu1/temperature=39,174,96
+
+[Face-2601][SensorLabels]
+cpu/all/averageTemperature=CPU moyenne
+cpu/all/maximumTemperature=CPU maximum
+gpu/gpu0/temperature=GPU
+gpu/gpu1/temperature=GPU
+
+[Face-2601][org.kde.ksysguard.linechart][General]
+historyAmount=300
+lineChartFillOpacity=15
+rangeAutoY=false
+showLegend=true
+rangeFromY=20
+rangeToY=110
+
+[Face-2602][Appearance]
+chartFace=org.kde.ksysguard.linechart
+title=Capteurs
+Title=Capteurs
+title[en]=Sensors
+Title[en]=Sensors
+
+[Face-2602][Sensors]
+highPrioritySensorIds=["lmsensors/BAT0-acpi-0","lmsensors/BAT0-acpi-0/in0","lmsensors/BAT0-acpi-0/power1","lmsensors/acpitz-acpi-0","lmsensors/acpitz-acpi-0/temp1","lmsensors/hp-isa-0000","lmsensors/hp-isa-0000/fan1","lmsensors/hp-isa-0000/fan2","lmsensors/mt7921_phy0-pci-0500","lmsensors/mt7921_phy0-pci-0500/temp1","lmsensors/nvme-pci-0700","lmsensors/nvme-pci-0700/temp1","lmsensors/nvme-pci-0700/temp2","lmsensors/nvme-pci-0700/temp3"]
+lowPrioritySensorIds=[]
+
+[Face-2602][SensorColors]
+lmsensors/BAT0-acpi-0=223,32,32
+lmsensors/BAT0-acpi-0/in0=244,102,88
+lmsensors/BAT0-acpi-0/power1=255,89,51
+lmsensors/acpitz-acpi-0=226,103,54
+lmsensors/acpitz-acpi-0/temp1=239,100,16
+lmsensors/hp-isa-0000=255,160,77
+lmsensors/hp-isa-0000/fan1=230,163,76
+lmsensors/hp-isa-0000/fan2=241,172,40
+lmsensors/mt7921_phy0-pci-0500=255,191,0
+lmsensors/mt7921_phy0-pci-0500/temp1=233,212,99
+lmsensors/nvme-pci-0700=242,231,64
+lmsensors/nvme-pci-0700/temp1=248,255,26
+lmsensors/nvme-pci-0700/temp2=199,223,32
+lmsensors/nvme-pci-0700/temp3=210,244,88
+
+[Face-2602][SensorLabels]
+lmsensors/BAT0-acpi-0=BAT0-acpi-0 BAT0-acpi-0
+lmsensors/BAT0-acpi-0/in0=BAT0-acpi-0 in0
+lmsensors/BAT0-acpi-0/power1=BAT0-acpi-0 power1
+lmsensors/acpitz-acpi-0=acpitz-acpi-0 acpitz-acpi-0
+lmsensors/acpitz-acpi-0/temp1=acpitz-acpi-0 temp1
+lmsensors/hp-isa-0000=hp-isa-0000 hp-isa-0000
+lmsensors/hp-isa-0000/fan1=hp-isa-0000 fan1
+lmsensors/hp-isa-0000/fan2=hp-isa-0000 fan2
+lmsensors/mt7921_phy0-pci-0500=mt7921_phy0-pci-0500 mt7921_phy0-pci-0500
+lmsensors/mt7921_phy0-pci-0500/temp1=mt7921_phy0-pci-0500 temp1
+lmsensors/nvme-pci-0700=nvme-pci-0700 nvme-pci-0700
+lmsensors/nvme-pci-0700/temp1=nvme-pci-0700 temp1
+lmsensors/nvme-pci-0700/temp2=nvme-pci-0700 temp2
+lmsensors/nvme-pci-0700/temp3=nvme-pci-0700 temp3
+
+[Face-2602][org.kde.ksysguard.linechart][General]
+historyAmount=300
+lineChartFillOpacity=15
+rangeAutoY=false
+showLegend=true
+rangeFromY=20
+rangeToY=110
+
+[Face-2603][Appearance]
+chartFace=org.kde.ksysguard.facegrid
+title=Températures par cœur
+Title=Températures par cœur
+title[en]=Per-core temperature
+Title[en]=Per-core temperature
+
+[Face-2603][Sensors]
+highPrioritySensorIds=["cpu/cpu\\\\d+/temperature"]
+lowPrioritySensorIds=[]
+
+[Face-2603][SensorColors]
+cpu/cpu0/temperature=223,32,32
+cpu/cpu1/temperature=244,102,88
+cpu/cpu10/temperature=242,231,64
+cpu/cpu11/temperature=248,255,26
+cpu/cpu2/temperature=255,89,51
+cpu/cpu3/temperature=226,103,54
+cpu/cpu4/temperature=239,100,16
+cpu/cpu5/temperature=255,160,77
+cpu/cpu6/temperature=230,163,76
+cpu/cpu7/temperature=241,172,40
+cpu/cpu8/temperature=255,191,0
+cpu/cpu9/temperature=233,212,99
+cpu/cpu\\d+/temperature=95,61,233
+
+[Face-2603][SensorLabels]
+cpu/cpu0/temperature=Cœur 1
+cpu/cpu1/temperature=Cœur 2
+cpu/cpu10/temperature=Cœur 11
+cpu/cpu11/temperature=Cœur 12
+cpu/cpu2/temperature=Cœur 3
+cpu/cpu3/temperature=Cœur 4
+cpu/cpu4/temperature=Cœur 5
+cpu/cpu5/temperature=Cœur 6
+cpu/cpu6/temperature=Cœur 7
+cpu/cpu7/temperature=Cœur 8
+cpu/cpu8/temperature=Cœur 9
+cpu/cpu9/temperature=Cœur 10
+
+[Face-2603][org.kde.ksysguard.facegrid][General]
+columnCount=4
+faceId=org.kde.ksysguard.linechart
+[Face-2603][FaceGrid][Appearance]
+chartFace=org.kde.ksysguard.linechart
+showTitle=false
+[Face-2603][FaceGrid][org.kde.ksysguard.linechart][General]
+historyAmount=120
+lineChartFillOpacity=100
+showGridLines=false
+showYAxisLabels=false
+
+[Face-2604][Appearance]
+chartFace=org.kde.ksysguard.textonly
+title=Valeurs actuelles
+Title=Valeurs actuelles
+title[en]=Current values
+Title[en]=Current values
+
+[Face-2604][Sensors]
+highPrioritySensorIds=["cpu/all/averageTemperature","cpu/all/maximumTemperature","gpu/gpu0/temperature","gpu/gpu1/temperature","lmsensors/BAT0-acpi-0","lmsensors/BAT0-acpi-0/in0","lmsensors/BAT0-acpi-0/power1"]
+lowPrioritySensorIds=[]
+
+[Face-2604][SensorColors]
+cpu/all/averageTemperature=41,128,185
+cpu/all/maximumTemperature=41,128,185
+gpu/gpu0/temperature=41,128,185
+gpu/gpu1/temperature=41,128,185
+lmsensors/BAT0-acpi-0=41,128,185
+lmsensors/BAT0-acpi-0/in0=41,128,185
+lmsensors/BAT0-acpi-0/power1=41,128,185
+
+[Face-2604][SensorLabels]
+cpu/all/averageTemperature=Total
+cpu/all/maximumTemperature=Maximum
+gpu/gpu0/temperature=GPU
+gpu/gpu1/temperature=GPU
+lmsensors/BAT0-acpi-0=BAT0-acpi-0
+lmsensors/BAT0-acpi-0/in0=in0
+lmsensors/BAT0-acpi-0/power1=power1
+
+[Face-2604][org.kde.ksysguard.textonly][General]
+groupByTotal=false
+
+[Face-2605][Appearance]
+chartFace=org.kde.ksysguard.textonly
+title=Ventilateurs
+Title=Ventilateurs
+title[en]=Fans
+Title[en]=Fans
+
+[Face-2605][Sensors]
+highPrioritySensorIds=["lmsensors/hp-isa-0000/fan1","lmsensors/hp-isa-0000/fan2"]
+lowPrioritySensorIds=[]
+
+[Face-2605][SensorColors]
+lmsensors/hp-isa-0000/fan1=41,128,185
+lmsensors/hp-isa-0000/fan2=41,128,185
+
+[Face-2605][SensorLabels]
+lmsensors/hp-isa-0000/fan1=fan1
+lmsensors/hp-isa-0000/fan2=fan2
+
+[Face-2605][org.kde.ksysguard.textonly][General]
+groupByTotal=false
+
 [page][row-1]
 Title=
 heightMode=balanced
 isTitle=false
 name=row-1
-
 [page][row-1][column-0]
 name=column-0
 noMargins=false
 showBackground=true
-
 [page][row-1][column-0][section-0]
 face=Face-2601
 isSeparator=false
 name=section-0
-
 [page][row-1][column-1]
 name=column-1
 noMargins=false
 showBackground=true
-
 [page][row-1][column-1][section-0]
 face=Face-2602
 isSeparator=false
@@ -249,22 +233,18 @@ Title=
 heightMode=balanced
 isTitle=false
 name=row-2
-
 [page][row-2][column-0]
 name=column-0
 noMargins=false
 showBackground=true
-
 [page][row-2][column-0][section-0]
 face=Face-2603
 isSeparator=false
 name=section-0
-
 [page][row-2][column-1]
 name=column-1
 noMargins=false
 showBackground=true
-
 [page][row-2][column-1][section-0]
 face=Face-2604
 isSeparator=false
@@ -272,26 +252,15 @@ name=section-0
 
 [page][row-3]
 Title=
-heightMode=minimum
+heightMode=balanced
 isTitle=false
 name=row-3
-
 [page][row-3][column-0]
 name=column-0
 noMargins=false
 showBackground=true
-
 [page][row-3][column-0][section-0]
 face=Face-2605
 isSeparator=false
 name=section-0
 
-[page][row-3][column-1]
-name=column-1
-noMargins=false
-showBackground=true
-
-[page][row-3][column-1][section-0]
-face=Face-2606
-isSeparator=false
-name=section-0

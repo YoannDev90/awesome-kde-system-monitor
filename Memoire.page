@@ -1,116 +1,3 @@
-# Mémoire — RAM physique et swap
-
-[Face-2201][Appearance]
-chartFace=org.kde.ksysguard.linechart
-title=Utilisation (%)
-Title=Utilisation (%)
-title[en]=Usage (%)
-Title[en]=Usage (%)
-
-[Face-2201][Sensors]
-highPrioritySensorIds=["memory/physical/usedPercent","memory/physical/applicationPercent","memory/physical/cachePercent","memory/physical/bufferPercent"]
-lowPrioritySensorIds=[]
-
-[Face-2201][SensorColors]
-memory/physical/usedPercent=233,61,142
-memory/physical/applicationPercent=61,213,233
-memory/physical/cachePercent=127,233,61
-memory/physical/bufferPercent=243,156,18
-
-[Face-2201][SensorLabels]
-memory/physical/usedPercent=Utilisée
-memory/physical/applicationPercent=Applications
-memory/physical/cachePercent=Cache
-memory/physical/bufferPercent=Tampon
-
-[Face-2201][org.kde.ksysguard.linechart][General]
-historyAmount=300
-lineChartFillOpacity=20
-rangeAutoY=false
-rangeFromY=0
-rangeToY=100
-showLegend=true
-
-[Face-2202][Appearance]
-chartFace=org.kde.ksysguard.linechart
-title=Volume (Go)
-Title=Volume (Go)
-title[en]=Amount (GiB)
-Title[en]=Amount (GiB)
-
-[Face-2202][Sensors]
-highPrioritySensorIds=["memory/physical/used","memory/physical/application","memory/physical/cache"]
-lowPrioritySensorIds=[]
-
-[Face-2202][SensorColors]
-memory/physical/used=233,61,142
-memory/physical/application=61,213,233
-memory/physical/cache=127,233,61
-
-[Face-2202][SensorLabels]
-memory/physical/used=Utilisée
-memory/physical/application=Applications
-memory/physical/cache=Cache
-
-[Face-2202][org.kde.ksysguard.linechart][General]
-historyAmount=300
-lineChartFillOpacity=15
-rangeAutoY=true
-showLegend=true
-
-[Face-2203][Appearance]
-chartFace=org.kde.ksysguard.linechart
-title=Swap (%)
-Title=Swap (%)
-title[en]=Swap (%)
-Title[en]=Swap (%)
-
-[Face-2203][Sensors]
-highPrioritySensorIds=["memory/swap/usedPercent"]
-lowPrioritySensorIds=[]
-
-[Face-2203][SensorColors]
-memory/swap/usedPercent=142,68,173
-
-[Face-2203][SensorLabels]
-memory/swap/usedPercent=Swap
-
-[Face-2203][org.kde.ksysguard.linechart][General]
-historyAmount=300
-lineChartFillOpacity=30
-rangeAutoY=false
-rangeFromY=0
-rangeToY=100
-showLegend=false
-
-[Face-2204][Appearance]
-chartFace=org.kde.ksysguard.textonly
-title=Volumes
-Title=Volumes
-title[en]=Amounts
-Title[en]=Amounts
-
-[Face-2204][Sensors]
-highPrioritySensorIds=["memory/physical/total","memory/physical/used","memory/physical/free","memory/swap/total","memory/swap/used"]
-lowPrioritySensorIds=[]
-
-[Face-2204][SensorColors]
-memory/physical/total=127,140,141
-memory/physical/used=233,61,142
-memory/physical/free=39,174,96
-memory/swap/total=127,140,141
-memory/swap/used=142,68,173
-
-[Face-2204][SensorLabels]
-memory/physical/total=RAM totale
-memory/physical/used=RAM utilisée
-memory/physical/free=RAM libre
-memory/swap/total=Swap total
-memory/swap/used=Swap utilisé
-
-[Face-2204][org.kde.ksysguard.textonly][General]
-groupByTotal=false
-
 [page]
 Title=Mémoire
 title=Mémoire
@@ -131,27 +18,121 @@ heightMode=minimum
 isTitle=true
 name=row-0
 
+[Face-2201][Appearance]
+chartFace=org.kde.ksysguard.linechart
+title=Utilisation physique (%)
+Title=Utilisation physique (%)
+title[en]=Physical usage (%)
+Title[en]=Physical usage (%)
+
+[Face-2201][Sensors]
+highPrioritySensorIds=["memory/physical/usedPercent"]
+lowPrioritySensorIds=[]
+
+[Face-2201][SensorColors]
+memory/physical/usedPercent=233,61,142
+
+[Face-2201][SensorLabels]
+memory/physical/usedPercent=Utilisée
+
+[Face-2201][org.kde.ksysguard.linechart][General]
+historyAmount=300
+lineChartFillOpacity=25
+rangeAutoY=false
+showLegend=true
+rangeFromY=0
+rangeToY=100
+
+[Face-2202][Appearance]
+chartFace=org.kde.ksysguard.textonly
+title=Volumes
+Title=Volumes
+title[en]=Volumes
+Title[en]=Volumes
+
+[Face-2202][Sensors]
+highPrioritySensorIds=["memory/physical/used","memory/physical/free","memory/physical/total"]
+lowPrioritySensorIds=[]
+
+[Face-2202][SensorColors]
+memory/physical/free=233,61,142
+memory/physical/total=233,61,142
+memory/physical/used=233,61,142
+
+[Face-2202][SensorLabels]
+memory/physical/free=Libre
+memory/physical/total=Totale
+memory/physical/used=Utilisée
+
+[Face-2202][org.kde.ksysguard.textonly][General]
+groupByTotal=false
+
+[Face-2203][Appearance]
+chartFace=org.kde.ksysguard.linechart
+title=Swap (%)
+Title=Swap (%)
+title[en]=Swap (%)
+Title[en]=Swap (%)
+
+[Face-2203][Sensors]
+highPrioritySensorIds=["memory/swap/usedPercent"]
+lowPrioritySensorIds=[]
+
+[Face-2203][SensorColors]
+memory/swap/usedPercent=142,68,173
+
+[Face-2203][SensorLabels]
+memory/swap/usedPercent=Swap utilisé
+
+[Face-2203][org.kde.ksysguard.linechart][General]
+historyAmount=300
+lineChartFillOpacity=20
+rangeAutoY=false
+showLegend=true
+rangeFromY=0
+rangeToY=100
+
+[Face-2204][Appearance]
+chartFace=org.kde.ksysguard.textonly
+title=Volumes swap
+Title=Volumes swap
+title[en]=Swap volumes
+Title[en]=Swap volumes
+
+[Face-2204][Sensors]
+highPrioritySensorIds=["memory/swap/used","memory/swap/free","memory/swap/total"]
+lowPrioritySensorIds=[]
+
+[Face-2204][SensorColors]
+memory/swap/free=142,68,173
+memory/swap/total=142,68,173
+memory/swap/used=142,68,173
+
+[Face-2204][SensorLabels]
+memory/swap/free=Libre
+memory/swap/total=Swap total
+memory/swap/used=Swap utilisé
+
+[Face-2204][org.kde.ksysguard.textonly][General]
+groupByTotal=false
+
 [page][row-1]
 Title=
 heightMode=balanced
 isTitle=false
 name=row-1
-
 [page][row-1][column-0]
 name=column-0
 noMargins=false
 showBackground=true
-
 [page][row-1][column-0][section-0]
 face=Face-2201
 isSeparator=false
 name=section-0
-
 [page][row-1][column-1]
 name=column-1
 noMargins=false
 showBackground=true
-
 [page][row-1][column-1][section-0]
 face=Face-2202
 isSeparator=false
@@ -162,23 +143,20 @@ Title=
 heightMode=balanced
 isTitle=false
 name=row-2
-
 [page][row-2][column-0]
 name=column-0
 noMargins=false
 showBackground=true
-
 [page][row-2][column-0][section-0]
 face=Face-2203
 isSeparator=false
 name=section-0
-
 [page][row-2][column-1]
 name=column-1
 noMargins=false
 showBackground=true
-
 [page][row-2][column-1][section-0]
 face=Face-2204
 isSeparator=false
 name=section-0
+
